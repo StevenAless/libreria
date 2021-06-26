@@ -12,26 +12,31 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import static project.pkg2.Login.busqueda_id;
 
 /**
  *
  * @author Casa
  */
-public class Comprobante extends javax.swing.JFrame {
+public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     ConexionBD conexion = new ConexionBD();
     Connection cn;
     Statement st;
     ResultSet rs;
+    ResultSet rs1;
     static int idC;
     String combo_tipo, comboC;
     double Ptotal = 0;
@@ -44,6 +49,7 @@ public class Comprobante extends javax.swing.JFrame {
     public Comprobante(Integer id) {
         this.idUsuario = id;
         initComponents();
+        this.tbl_products.addMouseListener(this);
         setLocationRelativeTo(null);
         this.setBackground(new Color(0, 0, 0, 0));
         jPanel1.setBackground(new Color(0, 0, 0, 0));
@@ -79,6 +85,8 @@ public class Comprobante extends javax.swing.JFrame {
         btn_guardarP = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         lbl_nuevoC = new javax.swing.JLabel();
+        btn_descartar = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txt_cliente = new javax.swing.JTextField();
@@ -147,6 +155,7 @@ public class Comprobante extends javax.swing.JFrame {
 
             }
         ));
+        tbl_products.setEnabled(false);
         jScrollPane1.setViewportView(tbl_products);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 370, 730, 220));
@@ -197,6 +206,17 @@ public class Comprobante extends javax.swing.JFrame {
         });
         jPanel1.add(lbl_nuevoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
 
+        btn_descartar.setText("Descartar_todo");
+        btn_descartar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_descartarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_descartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 640, -1, -1));
+
+        jLabel4.setText("Borrar");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 640, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/Panel-right.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, -1, 680));
 
@@ -242,7 +262,7 @@ public class Comprobante extends javax.swing.JFrame {
 
     private void btn_agregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPActionPerformed
         // TODO add your handling code here:
-        AgregarProductos agr = new AgregarProductos();
+        AgregarProductos agr = new AgregarProductos(this);
         agr.setVisible(true);
 
     }//GEN-LAST:event_btn_agregarPActionPerformed
@@ -266,6 +286,11 @@ public class Comprobante extends javax.swing.JFrame {
         System.out.println(combo_cliente.getSelectedIndex());
 
     }//GEN-LAST:event_combo_clienteActionPerformed
+
+    private void btn_descartarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_descartarMouseClicked
+        // TODO add your handling code here:
+        borrarproductos(null);
+    }//GEN-LAST:event_btn_descartarMouseClicked
 
     public void Rellenar() {
         String sql = "select * from numeracion where id_numeracion=1";
@@ -377,30 +402,60 @@ public class Comprobante extends javax.swing.JFrame {
         }
     }
 
-    /*
-    void obtenerid() {
-        String sql = "Select id_comprobante from comprobante";
-        cn = conexion.conectar();
-        try {
-
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-
-            while (rs.next()) {
-                idC = rs.getInt("id_comprobante");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-     */
     void Limpiar() {
         combo_cliente.removeAllItems();
     }
 
-    void listar() {
+    void borrarproductos(Integer idcarrito) {
+        String sqlselect = "select * from carrito where facturado=0";
+        String sqldelete = "delete from carrito where facturado=0";
+        cn = conexion.conectar();
+        try {
+            st = cn.createStatement();
+            System.out.println(idcarrito);
+            if (idcarrito != null) {
+                sqlselect = "select * from carrito where facturado=0 and id_carrito=" + idcarrito;
+                sqldelete = "delete from carrito where facturado=0 and id_carrito=" + idcarrito;
+            }
+
+            ResultSet rs = st.executeQuery(sqlselect);
+            List<Map<String, Integer>> lista = new ArrayList();
+            while (rs.next()) {
+                Map<String, Integer> item = new HashMap<>();
+                item.put("id", rs.getInt("id"));
+                item.put("cantidad", rs.getInt("cantidad"));
+                lista.add(item);
+            }
+            this.resetStock(cn, st, lista);
+
+            st.execute(sqldelete);
+            cn.close();
+            this.Rellenar();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("error:" + e.getMessage());
+        }
+    }
+
+    public void resetStock(Connection cn, Statement st, List<Map<String, Integer>> data) {
+        data.forEach(d -> {
+            Integer contador_stock = 0;
+            String sqlproducto = "select * from productos where id = " + d.get("id");
+            try {
+                ResultSet rs1 = st.executeQuery(sqlproducto);
+                while (rs1.next()) {
+                    contador_stock = rs1.getInt("stock");
+                }
+                contador_stock = contador_stock + d.get("cantidad");
+                String sqlupdate = "UPDATE productos SET stock=" + contador_stock + " WHERE id =" + d.get("id");
+                st.executeUpdate(sqlupdate);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+    public void listar() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id");
         modelo.addColumn("codigo");
@@ -408,6 +463,8 @@ public class Comprobante extends javax.swing.JFrame {
         modelo.addColumn("cantidad");
         modelo.addColumn("precio");
         modelo.addColumn("precio Total");
+        modelo.addColumn(" ");
+
         tbl_products.setModel(modelo);
 
         String sql = "select C.id_carrito, P.codigo, P.nombre, C.cantidad, C.precio, C.precioT from carrito C JOIN productos P ON C.id=P.id where facturado=0";
@@ -418,7 +475,7 @@ public class Comprobante extends javax.swing.JFrame {
             st = cn.createStatement();
             rs = st.executeQuery(sql);
 
-            Object[] productos = new Object[6];
+            Object[] productos = new Object[7];
 
             while (rs.next()) {
                 productos[0] = rs.getString("id_carrito");
@@ -427,6 +484,7 @@ public class Comprobante extends javax.swing.JFrame {
                 productos[3] = rs.getString("cantidad");
                 productos[4] = rs.getString("precio");
                 productos[5] = rs.getString("precioT");
+                productos[6] = "icono";
                 //double total = 0;
                 //        total = total + Double.parseDouble((String) productos[5]);
                 System.out.println("" + Double.parseDouble((String) productos[5]));
@@ -436,6 +494,7 @@ public class Comprobante extends javax.swing.JFrame {
 
             }
             tbl_products.setModel(modelo);
+            tbl_products.getColumnModel().getColumn(6).setCellRenderer(new GestionCeldas("icono"));
 
         } catch (SQLException e) {
             System.out.println("error");
@@ -481,10 +540,19 @@ public class Comprobante extends javax.swing.JFrame {
             }
         }
     }
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Comprobante(0).setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ActualizarP;
     private javax.swing.JButton btn_agregarP;
     private javax.swing.JLabel btn_clientes;
+    private javax.swing.JLabel btn_descartar;
     private javax.swing.JButton btn_guardarP;
     private javax.swing.JLabel btn_listadocomp;
     private javax.swing.JLabel btn_productos;
@@ -493,6 +561,7 @@ public class Comprobante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
@@ -505,4 +574,35 @@ public class Comprobante extends javax.swing.JFrame {
     private javax.swing.JTextField txt_serie;
     private javax.swing.JTextField txt_tipocambio;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int fila = tbl_products.rowAtPoint(e.getPoint());
+        int columna = tbl_products.columnAtPoint(e.getPoint());
+        System.out.println(e);
+        if (columna == 6) {
+            String id = tbl_products.getValueAt(fila, 0).toString();
+            borrarproductos(Integer.valueOf(id));
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

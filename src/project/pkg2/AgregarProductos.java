@@ -31,13 +31,15 @@ public class AgregarProductos extends javax.swing.JFrame {
     int cantidad;
     float precio, precioT;
     int comboIndex;
+    Comprobante parent;
 
     /**
      * Creates new form AgregrarProductos
      */
-    public AgregarProductos() {
+    public AgregarProductos(Comprobante comprobante) {
         initComponents();
         mostrarproductos();
+        this.parent = comprobante;
     }
 
     /**
@@ -157,7 +159,7 @@ public class AgregarProductos extends javax.swing.JFrame {
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         // TODO add your handling code here:
         agregar();
-
+        this.parent.listar();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void combo_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_productosActionPerformed

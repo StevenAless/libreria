@@ -179,7 +179,8 @@ public class NuevoProducto extends javax.swing.JFrame {
                 //cl.actualizar.doClick();
                 
                 }catch(HeadlessException | SQLException e){
-                    System.out.println("Error");
+                    e.printStackTrace();
+                    System.out.println("Error : "+e.getMessage());
                 }
         }
     }
