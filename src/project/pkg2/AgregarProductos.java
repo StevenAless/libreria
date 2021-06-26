@@ -6,6 +6,7 @@
 package project.pkg2;
 
 import conexion.ConexionBD;
+import java.awt.Color;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -39,6 +40,9 @@ public class AgregarProductos extends javax.swing.JFrame {
     public AgregarProductos(Comprobante comprobante) {
         initComponents();
         mostrarproductos();
+        setLocationRelativeTo(null);
+        this.setBackground(new Color(0, 0, 0, 0));
+        jPanel1.setBackground(new Color(0, 0, 0, 0));
         this.parent = comprobante;
     }
 
@@ -53,25 +57,24 @@ public class AgregarProductos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_agregar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         combo_productos = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txt_cantidad = new javax.swing.JTextField();
         lbl_cantidad = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txt_precio = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         txt_precioT = new javax.swing.JTextField();
+        btn_cancelar = new javax.swing.JLabel();
+        btn_agregarP = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btn_agregar = new javax.swing.JButton();
         btn_cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_agregar.setText("Agregar");
-        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarActionPerformed(evt);
-            }
-        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         combo_productos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione su producto" }));
         combo_productos.addActionListener(new java.awt.event.ActionListener() {
@@ -79,79 +82,64 @@ public class AgregarProductos extends javax.swing.JFrame {
                 combo_productosActionPerformed(evt);
             }
         });
+        jPanel1.add(combo_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 270, 50));
 
         jLabel1.setText("Producto");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 17, -1, -1));
 
+        txt_cantidad.setBorder(null);
         txt_cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_cantidadKeyReleased(evt);
             }
         });
+        jPanel1.add(txt_cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, 80, 30));
 
-        lbl_cantidad.setText("Cantidad");
+        lbl_cantidad.setText(" ");
+        jPanel1.add(lbl_cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 184, 20, 20));
 
-        jLabel3.setText("Precio");
+        txt_precio.setBorder(null);
+        jPanel1.add(txt_precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 120, 30));
 
-        jLabel4.setText("Precio Total");
+        txt_precioT.setBorder(null);
+        jPanel1.add(txt_precioT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 140, 30));
+
+        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/Boton_cancelar.png"))); // NOI18N
+        btn_cancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_cancelarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, -1, -1));
+
+        btn_agregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/Boton_guardar.png"))); // NOI18N
+        btn_agregarP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_agregarPMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_agregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 310, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/AgregarProduct.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 400));
+
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 152, 58));
 
         btn_cerrar.setText("Cerrar");
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 142, 58));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(combo_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_cantidad)
-                            .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txt_precioT, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(280, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combo_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_cantidad)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_precioT, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -175,6 +163,22 @@ public class AgregarProductos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txt_cantidadKeyReleased
 
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_cerrarActionPerformed
+
+    private void btn_agregarPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_agregarPMouseClicked
+        // TODO add your handling code here:
+         agregar();
+        this.parent.listar();
+    }//GEN-LAST:event_btn_agregarPMouseClicked
+
+    private void btn_cancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_cancelarMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btn_cancelarMouseClicked
+
     void llenarprecio() {
 
         int combo = combo_productos.getSelectedIndex();
@@ -190,7 +194,7 @@ public class AgregarProductos extends javax.swing.JFrame {
                 productos[0] = rs.getString("stock");
                 productos[1] = rs.getString("precio_venta");
             }
-            lbl_cantidad.setText("cantidad disponbible: " + productos[0]);
+            lbl_cantidad.setText(":" + productos[0]);
             txt_precio.setText("" + productos[1]);
             float ptotal = Float.parseFloat((String) txt_cantidad.getText()) * Float.parseFloat((String) productos[1]);
             txt_precioT.setText("" + df.format(ptotal));
@@ -268,11 +272,13 @@ public class AgregarProductos extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JLabel btn_agregarP;
+    private javax.swing.JLabel btn_cancelar;
     private javax.swing.JButton btn_cerrar;
     private javax.swing.JComboBox<String> combo_productos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_cantidad;
     private javax.swing.JTextField txt_cantidad;
     private javax.swing.JTextField txt_precio;

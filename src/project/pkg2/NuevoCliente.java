@@ -256,7 +256,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 cn=conexion.conectar();
                 st=cn.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null,"Usuario Agregado");
+                JOptionPane.showMessageDialog(null,"Cliente Agregado");
                 
                 
                 }catch(Exception e){
