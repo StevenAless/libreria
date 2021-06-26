@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package project.pkg2;
+
 import conexion.ConexionBD;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,13 +21,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import static project.pkg2.Login.busqueda_id;
-import static project.pkg2.Login.busqueda_nombre;
 
 /**
  *
  * @author Casa
  */
 public class Comprobante extends javax.swing.JFrame {
+
     ConexionBD conexion = new ConexionBD();
     Connection cn;
     Statement st;
@@ -34,19 +35,22 @@ public class Comprobante extends javax.swing.JFrame {
     static int idC;
     String combo_tipo, comboC;
     double Ptotal = 0;
-    int cliente;
+    Integer cliente;
+    Integer idUsuario = null;
+
     /**
      * Creates new form Comprobante
      */
-    public Comprobante() {
+    public Comprobante(Integer id) {
+        this.idUsuario = id;
         initComponents();
         setLocationRelativeTo(null);
-        this.setBackground(new Color(0,0,0,0));
-        jPanel1.setBackground(new Color(0,0,0,0));
+        this.setBackground(new Color(0, 0, 0, 0));
+        jPanel1.setBackground(new Color(0, 0, 0, 0));
         mostrarcliente();
-        obtenerid();
     }
     DecimalFormat df = new DecimalFormat("0.00");
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,15 +217,15 @@ public class Comprobante extends javax.swing.JFrame {
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
         // TODO add your handling code here:
-        Productos pro = new Productos();
+        Productos pro = new Productos(this.idUsuario);
         pro.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btn_productosMouseClicked
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
         // TODO add your handling code here:
-        Clientes clientes = new Clientes();
+        Clientes clientes = new Clientes(this.idUsuario);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
@@ -240,14 +244,14 @@ public class Comprobante extends javax.swing.JFrame {
         // TODO add your handling code here:
         AgregarProductos agr = new AgregarProductos();
         agr.setVisible(true);
-        
+
     }//GEN-LAST:event_btn_agregarPActionPerformed
 
     private void lbl_nuevoCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_nuevoCMouseClicked
         // TODO add your handling code here:
         NuevoCliente nuevo = new NuevoCliente();
         nuevo.setVisible(true);
-         
+
     }//GEN-LAST:event_lbl_nuevoCMouseClicked
 
     private void btn_ActualizarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActualizarPActionPerformed
@@ -255,158 +259,149 @@ public class Comprobante extends javax.swing.JFrame {
         combo_cliente.removeAllItems();
         mostrarcliente();
         listar();
-        
     }//GEN-LAST:event_btn_ActualizarPActionPerformed
 
     private void combo_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_clienteActionPerformed
         // TODO add your handling code here:
         System.out.println(combo_cliente.getSelectedIndex());
+
     }//GEN-LAST:event_combo_clienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public void Rellenar() {
+        String sql = "select * from numeracion where id_numeracion=1";
+        combo_tipo = combo_tipoC.getSelectedItem().toString();
+        System.out.println(combo_tipo);
+
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            cn = conexion.conectar();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+            Object[] numeracion = new Object[3];
+
+            while (rs.next()) {
+                numeracion[0] = rs.getString("id_numeracion");
+                numeracion[1] = rs.getString("contFactura");
+                numeracion[2] = rs.getString("contBoleta");
+
+                if ("Factura Electronica".equals(combo_tipo)) {
+                    txt_serie.setText("F001");
+                    txt_numero.setText("000" + numeracion[1]);
+
+                } else if ("Boleta Electronica".equals(combo_tipo)) {
+                    txt_serie.setText("B001");
+                    txt_numero.setText("000" + numeracion[2]);
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Comprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Comprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Comprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Comprobante.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        } catch (SQLException e) {
+            System.out.println("error" + e.getMessage());
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Comprobante().setVisible(true);
-            }
-        });
-    }
-    
-    public void Rellenar(){
-        String sql="select * from numeracion where id_numeracion=1";
-        combo_tipo= combo_tipoC.getSelectedItem().toString();
-        System.out.println(combo_tipo);
-        
-        try{
-            cn=conexion.conectar();
-            st=cn.createStatement();
-            rs=st.executeQuery(sql);
-            Object[]numeracion=new Object[3];
-           
-           
-            while(rs.next()){
-            numeracion[0]=rs.getString("id_numeracion");    
-            numeracion[1]=rs.getString("contFactura");
-            numeracion[2]=rs.getString("contBoleta");
-            
-                    
-        if("Factura Electronica".equals(combo_tipo)){
-            txt_serie.setText("F001");
-            txt_numero.setText("000"+numeracion[1]);
-            
-        } else if("Boleta Electronica".equals(combo_tipo)){
-            txt_serie.setText("B001");
-            txt_numero.setText("000"+numeracion[2]);
         }
 
-            }
- 
-        }catch (SQLException e){
-             System.out.println("error"+e.getMessage());
-            
-        }
-   
+        Integer correlativo = this.getCorrelativo(txt_serie.getText());
+        System.err.println("correlativo: " + correlativo);
+        Integer correlativoValor = correlativo == null ? 1 : correlativo + 1;
+        txt_numero.setText("000" + correlativoValor);
+        this.listar();
     }
-    
-    
-    public void insertarFechas(){
-        String sql="insert into comprobante(fecha) values (?)";
-        try{
-        PreparedStatement pst = cn.prepareStatement(sql);
-        //st=cn.PreparedStatement();
-        ResultSet rs=st.executeQuery(sql);
-        pst.setString(7,((JTextField)jdFecha.getDateEditor().getUiComponent()).getText());
-        
-        pst.execute();
+
+    public void insertarFechas() {
+        String sql = "insert into comprobante(fecha) values (?)";
+        try {
+            PreparedStatement pst = cn.prepareStatement(sql);
+            //st=cn.PreparedStatement();
+            ResultSet rs = st.executeQuery(sql);
+            pst.setString(7, ((JTextField) jdFecha.getDateEditor().getUiComponent()).getText());
+
+            pst.execute();
             System.out.println("Fecha registrada");
+        } catch (Exception e) {
+            System.out.println(" error : " + e.getMessage());
         }
-        catch(Exception e){
-            System.out.println(" error : "+e.getMessage());
-        }
-    }
-    
-    void mostrarcliente(){
-    String sql="Select nombre from clientes";
-        cn=conexion.conectar();
-    try {
-        combo_cliente.addItem("Seleccionar Cliente");
-        st=cn.createStatement();
-        ResultSet rs=st.executeQuery(sql);
-        while(rs.next()){
-        combo_cliente.addItem(rs.getString("nombre")); //nombre de la cabecera tabla pa mostrar
-        }
-
-    } catch (SQLException ex) {
-        Logger.getLogger(NuevoProducto.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    }
-    void SeleccionarCliente(){
-        comboC= combo_cliente.getSelectedItem().toString();
-        String sql ="select id_cliente where nombre="+comboC; 
-        try{
-            cn=conexion.conectar();
-            st=cn.createStatement();
-            rs=st.executeQuery(sql);
-            
-            while(rs.next()){
-            cliente=Integer.parseInt(rs.getString("id_cliente"));    
-                System.out.println(""+cliente);
+    void mostrarcliente() {
+        String sql = "Select nombre from clientes";
+        cn = conexion.conectar();
+        try {
+            combo_cliente.addItem("Seleccionar Cliente");
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                combo_cliente.addItem(rs.getString("nombre")); //nombre de la cabecera tabla pa mostrar
             }
-        }catch (SQLException e){
-             System.out.println("error"+e.getMessage());
-        }
-    }
-    void obtenerid(){
-        String sql="Select id_comprobante from comprobante";
-        cn=conexion.conectar();
-    try {
-        
-        st=cn.createStatement();
-        ResultSet rs=st.executeQuery(sql);
-        
-        while(rs.next()){
-        idC=rs.getInt("comprobante");
-        
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    } catch (SQLException ex) {
-        Logger.getLogger(NuevoProducto.class.getName()).log(Level.SEVERE, null, ex);
     }
 
+    private Integer getCorrelativo(String serie) {
+        String sql = "SELECT numero_comprobante from comprobante where serie_comprobante='" + serie + "' order by fecha desc limit 1";
+        System.out.println("sql: " + sql);
+        Integer numero_comprobante = null;
+        try {
+            cn = conexion.conectar();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                numero_comprobante = Integer.parseInt(rs.getString("numero_comprobante"));
+            }
+            cn.close();
+            return numero_comprobante;
+        } catch (SQLException e) {
+            System.out.println("error" + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
     }
-    void Limpiar (){
+
+    private Integer SeleccionarCliente() {
+        comboC = combo_cliente.getSelectedItem().toString();
+        String sql = "select id_cliente from clientes where nombre='" + comboC + "'";
+        Integer idCliente = null;
+        try {
+            cn = conexion.conectar();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                cliente = Integer.parseInt(rs.getString("id_cliente"));
+                System.out.println("" + cliente);
+                idCliente = Integer.parseInt(rs.getString("id_cliente"));
+            }
+            return idCliente;
+        } catch (SQLException e) {
+            System.out.println("error" + e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    /*
+    void obtenerid() {
+        String sql = "Select id_comprobante from comprobante";
+        cn = conexion.conectar();
+        try {
+
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                idC = rs.getInt("id_comprobante");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+     */
+    void Limpiar() {
         combo_cliente.removeAllItems();
     }
-   
-    void listar(){
-        DefaultTableModel modelo=new DefaultTableModel();
+
+    void listar() {
+        DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("id");
         modelo.addColumn("codigo");
         modelo.addColumn("nombre");
@@ -414,69 +409,76 @@ public class Comprobante extends javax.swing.JFrame {
         modelo.addColumn("precio");
         modelo.addColumn("precio Total");
         tbl_products.setModel(modelo);
-        
-        String sql="select C.id_carrito, P.codigo, P.nombre, C.cantidad, C.precio, C.precioT from carrito C JOIN productos P ON C.id=P.id where Identificador="+idC;
+
+        String sql = "select C.id_carrito, P.codigo, P.nombre, C.cantidad, C.precio, C.precioT from carrito C JOIN productos P ON C.id=P.id where facturado=0";
         //sql="Select P.id, P.codigo, P.nombre, P.stock, P.precio_venta, C.nombre from productos P JOIN categoria C ON P.id_categoria=C.id_categoria";
 
-        try{
-            cn=conexion.conectar();
-            st=cn.createStatement();
-            rs=st.executeQuery(sql);
-            
-            Object[]productos=new Object[6];
-           
-           
-            while(rs.next()){
-            productos[0]=rs.getString("id_carrito");    
-            productos[1]=rs.getString("codigo");
-            productos[2]=rs.getString("nombre");
-            productos[3]=rs.getString("cantidad");
-            productos[4]=rs.getString("precio");
-            productos[5]=rs.getString("precioT");
-            //double total = 0;
-            //        total = total + Double.parseDouble((String) productos[5]);
-                System.out.println(""+Double.parseDouble((String) productos[5]));
-            Ptotal=Ptotal+Double.parseDouble((String) productos[5]);
-           
-            modelo.addRow(productos);
-            
+        try {
+            cn = conexion.conectar();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+
+            Object[] productos = new Object[6];
+
+            while (rs.next()) {
+                productos[0] = rs.getString("id_carrito");
+                productos[1] = rs.getString("codigo");
+                productos[2] = rs.getString("nombre");
+                productos[3] = rs.getString("cantidad");
+                productos[4] = rs.getString("precio");
+                productos[5] = rs.getString("precioT");
+                //double total = 0;
+                //        total = total + Double.parseDouble((String) productos[5]);
+                System.out.println("" + Double.parseDouble((String) productos[5]));
+                Ptotal = Ptotal + Double.parseDouble((String) productos[5]);
+
+                modelo.addRow(productos);
+
             }
             tbl_products.setModel(modelo);
 
-        }catch (SQLException e){
-             System.out.println("error");
-            System.out.println("esto viene de editar error id:"+idC);
+        } catch (SQLException e) {
+            System.out.println("error");
+            System.out.println("esto viene de editar error id:" + idC);
         }
     }
-    
-     void guardar(){
 
-        String tipo_comprobante=combo_tipo;
-        String serie=txt_serie.getText();
-        String numero=txt_numero.getText();
+    void guardar() {
+
+        String tipo_comprobante = combo_tipo;
+        String serie = txt_serie.getText();
+        String numero = txt_numero.getText();
         //String Cliente=comboC;
-        String Impuesto=df.format((Ptotal/1.18)*0.18);
-        double precioT=Ptotal;
-        int usuario=busqueda_id;
-        
+        String Impuesto = df.format((Ptotal / 1.18) * 0.18);
+        double precioT = Ptotal;
+        System.out.println("idUsuario: " + this.idUsuario);
+        int usuario = this.idUsuario;
+        Integer idCliente = this.SeleccionarCliente();
+        System.err.println("cliente: " + idCliente);
 
         //String sql="insert comprobante set id_cliente='"+cliente+"',id_usuario='"+usuario+"',tipo_comprobante='"+tipo_comprobante+"',serie_comprobante='"+serie+
         //        "',numero_comprobante='"+numero+"',impuesto='"+Impuesto+"',total_venta='"+precioT+"' where id_comprobante="+idC;
-        
-        String sql="insert into comprobante (id_cliente,id_usuario,tipo_comprobante,serie_comprobante,numero_comprobante,impuesto,total_venta)"
-                    + "values('"+cliente+"','"+usuario+"','"+tipo_comprobante+"','"+serie+"','"+numero+"','"+Impuesto+"','"+precioT+"')";
-        
-        if(combo_tipo.equals("")||txt_serie.equals("")||txt_numero.equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese los campos obligatorios");
-        }else{
-            try{
-                cn=conexion.conectar();
-                st=cn.createStatement();
+        String sql = "insert into comprobante (id_cliente,id_usuario,tipo_comprobante,serie_comprobante,numero_comprobante,impuesto,total_venta)"
+                + "values('" + idCliente + "','" + usuario + "','" + tipo_comprobante + "','" + serie + "','" + numero + "','" + Impuesto + "','" + precioT + "')";
+
+        if (combo_tipo.equals("") || txt_serie.equals("") || txt_numero.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese los campos obligatorios");
+        } else {
+            try {
+                cn = conexion.conectar();
+                st = cn.createStatement();
+
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null,"comprobante Registrado");
-                }catch(HeadlessException | SQLException e){
-                JOptionPane.showMessageDialog(null,"error al regitrar comprobante"+e.getMessage());
-                }
+                JOptionPane.showMessageDialog(null, "comprobante Registrado");
+
+                String sqlFacturado = "UPDATE carrito SET facturado=1";
+                st.executeUpdate(sqlFacturado);
+
+                this.Rellenar();
+                cn.close();
+            } catch (HeadlessException | SQLException e) {
+                JOptionPane.showMessageDialog(null, "error al regitrar comprobante" + e.getMessage());
+            }
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

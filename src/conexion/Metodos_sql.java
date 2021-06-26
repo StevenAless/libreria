@@ -3,6 +3,8 @@ package conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Metodos_sql {
 
@@ -37,9 +39,10 @@ public class Metodos_sql {
         return result;
     }
 
-    public static String buscarNombre(String correo) {
+    public static Map<String,String> buscarNombre(String correo) {
         String busqueda_nombre = null;
         Connection conection = null;
+        Map<String, String> dato  = new HashMap();
         try {
             conection = ConexionBD.conectar();
             String sentencia_buscar = ("SELECT id_usuario,nombre,apellidos FROM usuarios WHERE correo = '" + correo + "'");
@@ -51,13 +54,15 @@ public class Metodos_sql {
                 String apellidos = resultado.getString("apellidos");
                 busqueda_nombre = (nombre + " " + apellidos);
                 busqueda_id = id_usuario;
+                dato.put("nombre", busqueda_nombre);
+                dato.put("id",String.valueOf(id_usuario));
             }
             conection.close();
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        return busqueda_nombre;
+        return dato;
     }
 
     public static String buscarUsuarioRegistrado(String correo, String contraseña) {

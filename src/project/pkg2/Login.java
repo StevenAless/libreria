@@ -4,16 +4,21 @@
  * and open the template in the editor.
  */
 package project.pkg2;
+
 import java.awt.Color;
 import conexion.Metodos_sql;
+import java.util.Map;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jorge zavala
  */
 public class Login extends javax.swing.JFrame {
-    static String busqueda_nombre;
+
+    public Map<String,String> busqueda_nombre;
     static int busqueda_id;
+
     /**
      * Creates new form Login
      */
@@ -22,14 +27,15 @@ public class Login extends javax.swing.JFrame {
         //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         //this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setLocationRelativeTo(null);
-        this.setBackground(new Color(0,0,0,0));
-        jPanel1.setBackground(new Color(0,0,0,0));
-        txtcorreo.setBackground(new Color(0,0,0,0));
-        txtpwd.setBackground(new Color(0,0,0,0));
-        
+        this.setBackground(new Color(0, 0, 0, 0));
+        jPanel1.setBackground(new Color(0, 0, 0, 0));
+        txtcorreo.setBackground(new Color(0, 0, 0, 0));
+        txtpwd.setBackground(new Color(0, 0, 0, 0));
+
     }
-    
+
     Metodos_sql metodos = new Metodos_sql();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,18 +164,18 @@ public class Login extends javax.swing.JFrame {
     private void boton_ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_ingresarMouseClicked
         // TODO add your handling code here:
         String busqueda_usuario = Metodos_sql.buscarUsuarioRegistrado(txtcorreo.getText(), txtpwd.getText());
-        if (busqueda_usuario.equals("Usuario encontrado")){
+        if (busqueda_usuario.equals("Usuario encontrado")) {
             busqueda_nombre = metodos.buscarNombre(txtcorreo.getText());
-            
-            JOptionPane.showMessageDialog(this, "Bienvenido(a) \n" + busqueda_nombre);
-             
-            Comprobante comp = new Comprobante();
+
+            JOptionPane.showMessageDialog(this, "Bienvenido(a) \n" + busqueda_nombre.get("nombre"));
+
+            Comprobante comp = new Comprobante(Integer.valueOf(busqueda_nombre.get("id")));
             comp.setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuario no Registrado, por favor Registrese");
         }
-        
+
     }//GEN-LAST:event_boton_ingresarMouseClicked
 
     private void registroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registroMouseClicked

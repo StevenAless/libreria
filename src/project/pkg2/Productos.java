@@ -28,10 +28,12 @@ public class Productos extends javax.swing.JFrame {
     ResultSet rs;
     DefaultTableModel modeloP;
     static int idP;
+    Integer idUsuario ;
     /**
      * Creates new form Productos
      */
-    public Productos() {
+    public Productos(Integer idUsuario) {
+        this.idUsuario = idUsuario;
         initComponents();
         setLocationRelativeTo(null);
         this.setBackground(new Color(0,0,0,0));
@@ -244,54 +246,18 @@ public class Productos extends javax.swing.JFrame {
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
         // TODO add your handling code here:
-        Clientes clientes = new Clientes();
+        Clientes clientes = new Clientes(this.idUsuario);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
 
     private void btn_comprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprobanteMouseClicked
         // TODO add your handling code here:
-        Comprobante comp = new Comprobante();
+        Comprobante comp = new Comprobante(null);
         comp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_comprobanteMouseClicked
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Productos().setVisible(true);
-            }
-        });
-    }
-
-        
     void listarP(String nombre)  { //buscar()
     
         DefaultTableModel modeloP=new DefaultTableModel();
