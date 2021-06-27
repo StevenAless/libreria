@@ -51,6 +51,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         this.setBackground(new Color(0, 0, 0, 0));
         jPanel1.setBackground(new Color(0, 0, 0, 0));
         mostrarcliente();
+        jdFecha.setDateFormatString("dd/MM/yyyy");
     }
     DecimalFormat df = new DecimalFormat("0.00");
 

@@ -1,12 +1,5 @@
 package project.pkg2;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.GsonBuilder;
 import static conexion.ConexionBD.conectar;
 import java.sql.Connection;
@@ -21,12 +14,15 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -40,7 +36,6 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     Connection cn;
     Statement st;
     static int idC;
-    String combo_tipo, comboC;
     double Ptotal = 0;
     Integer cliente;
     Integer idUsuario = null;
@@ -48,11 +43,12 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     public Listado(Integer id) {
         this.idUsuario = id;
         initComponents();
+        txt_fecha.setDateFormatString("dd/MM/yyyy");
         this.tbl_comprobantes.addMouseListener(this);
         setLocationRelativeTo(null);
-        this.setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0, 0, 0, 0));
         jPanel1.setBackground(new Color(0, 0, 0, 0));
-        this.listar();
+        this.listar("");
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +64,11 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         btn_productos = new javax.swing.JLabel();
         btn_clientes = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        txt_fecha = new com.toedter.calendar.JDateChooser();
+        combo_comprobante = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        txt_cliente = new javax.swing.JTextField();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -97,7 +98,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         });
         jScrollPane1.setViewportView(tbl_comprobantes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 720, 580));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 720, 480));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/Menu1.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
@@ -129,6 +130,36 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Panel-left.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        txt_fecha.setDateFormatString("yyyy/MM/dd");
+        jPanel1.add(txt_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 160, 40));
+
+        combo_comprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Tipo Comprobante", "Factura Electronica", "Boleta Electronica" }));
+        combo_comprobante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_comprobanteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(combo_comprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 260, 40));
+
+        jButton1.setText("limpiar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 60, -1, -1));
+
+        jButton2.setText("filtrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 60, -1, -1));
+
+        txt_cliente.setToolTipText("");
+        jPanel1.add(txt_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 460, 30));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 680));
 
         pack();
@@ -154,7 +185,46 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_comprobantesMouseClicked
 
-    public void listar() {
+    private void combo_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_comprobanteActionPerformed
+
+    }//GEN-LAST:event_combo_comprobanteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limpiar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        filtrar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void limpiar() {
+        combo_comprobante.setSelectedIndex(0);
+        txt_fecha.setDate(null);
+        txt_cliente.setText("");
+        filtrar();
+    }
+
+    private void filtrar() {
+        String filtro = "";
+        Locale loc = new Locale("es", "PE");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, loc);
+        String combo = combo_comprobante.getSelectedItem().toString();
+        if ("Factura Electronica".equalsIgnoreCase(combo) || "Boleta Electronica".equalsIgnoreCase(combo)) {
+            filtro += "AND c.tipo_comprobante='" + combo + "'";
+        }
+        if (txt_fecha.getDate() != null) {
+            String[] date = dateFormat.format(txt_fecha.getDate()).split("/");
+            filtro += " AND c.fecha like '%" + date[2] + "-" + date[1] + "-" + date[0] + "%'";
+        }
+        final String cliente = txt_cliente.getText();
+        if (!"".equals(cliente.trim())) {
+            filtro += " AND cl.nombre like '%" + cliente + "%'";
+        }
+        System.err.println(filtro);
+        listar(filtro);
+    }
+
+    private void listar(String filtro) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("#");
         modelo.addColumn("FECHA DE EMISIÓN");
@@ -167,7 +237,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
 
         tbl_comprobantes.setModel(modelo);
 
-        String sql = "select c.*, cl.nombre as cliente from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente;";
+        String sql = "select c.*, cl.nombre as cliente from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente WHERE 1=1 " + filtro;
 
         cn = conectar();
         try {
@@ -209,12 +279,17 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel btn_clientes;
     private javax.swing.JLabel btn_listadocomp;
     private javax.swing.JLabel btn_productos;
+    private javax.swing.JComboBox<String> combo_comprobante;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_comprobantes;
+    private javax.swing.JTextField txt_cliente;
+    private com.toedter.calendar.JDateChooser txt_fecha;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -224,24 +299,29 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         if (columna == 7) {
             Integer id = Integer.valueOf(tbl_comprobantes.getValueAt(fila, 0).toString());
             List<Map<String, Object>> items = get_items(id);
-            Map<String, Object> object = new HashMap<>();
-            object.put("items", items);
-
-            String json = new GsonBuilder().setPrettyPrinting().create().toJson(items);
-            System.out.println(json);
-            generarReporte(json, get_comprobante(id));
+            if (items.size() <= 0) {
+                JOptionPane.showMessageDialog(this, "No se encontraron items para el comprobante");
+            } else {
+                String json = new GsonBuilder().setPrettyPrinting().create().toJson(items);
+                System.out.println(json);
+                generarReporte(json, get_comprobante(id));
+            }
         }
     }
 
     public static void generarReporte(String json, Map parameters) {
-        final String output = "D:\\reporte.pdf";
+        final String output = System.getProperty("user.home") + File.separator + "comprobantes" + File.separator;
+        File theDir = new File(output);
+        if (!theDir.exists()) {
+            theDir.mkdirs();
+        }
 
         try (InputStream fileIn = Listado.class.getResourceAsStream("factura_v_6.jasper")) {
             ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(json.getBytes());
             JRDataSource jsonDataSource = new JsonDataSource(jsonDataStream);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(fileIn, parameters, jsonDataSource);
-            JasperExportManager.exportReportToPdfFile(jasperPrint, output);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, output + parameters.get("serie") + ".pdf");
             Desktop desktop = Desktop.getDesktop();
             File file = new File(output);
             if (file.exists()) {
