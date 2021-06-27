@@ -59,7 +59,6 @@ public class AgregarProductos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         combo_productos = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         txt_cantidad = new javax.swing.JTextField();
         lbl_cantidad = new javax.swing.JLabel();
         txt_precio = new javax.swing.JTextField();
@@ -67,8 +66,6 @@ public class AgregarProductos extends javax.swing.JFrame {
         btn_cancelar = new javax.swing.JLabel();
         btn_agregarP = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btn_agregar = new javax.swing.JButton();
-        btn_cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -83,9 +80,6 @@ public class AgregarProductos extends javax.swing.JFrame {
             }
         });
         jPanel1.add(combo_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 270, 50));
-
-        jLabel1.setText("Producto");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 17, -1, -1));
 
         txt_cantidad.setBorder(null);
         txt_cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -123,32 +117,10 @@ public class AgregarProductos extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/AgregarProduct.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 400));
 
-        btn_agregar.setText("Agregar");
-        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, 152, 58));
-
-        btn_cerrar.setText("Cerrar");
-        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cerrarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 142, 58));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        // TODO add your handling code here:
-        agregar();
-        this.parent.listar();
-    }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void combo_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_productosActionPerformed
         // TODO add your handling code here:
@@ -162,11 +134,6 @@ public class AgregarProductos extends javax.swing.JFrame {
         txt_precioT.setText("" + df.format(ptotal));
 
     }//GEN-LAST:event_txt_cantidadKeyReleased
-
-    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btn_cerrarActionPerformed
 
     private void btn_agregarPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_agregarPMouseClicked
         // TODO add your handling code here:
@@ -271,12 +238,9 @@ public class AgregarProductos extends javax.swing.JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agregar;
     private javax.swing.JLabel btn_agregarP;
     private javax.swing.JLabel btn_cancelar;
-    private javax.swing.JButton btn_cerrar;
     private javax.swing.JComboBox<String> combo_productos;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_cantidad;

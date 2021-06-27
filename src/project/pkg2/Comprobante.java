@@ -77,11 +77,6 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         btn_generarC = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        btn_agregarP = new javax.swing.JButton();
-        btn_ActualizarP = new javax.swing.JButton();
-        btn_guardarP = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txt_cliente = new javax.swing.JTextField();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -193,40 +188,10 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         jPanel1.add(btn_generarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 570, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/panel-right-2.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, -1, 680));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 850, 680));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Panel-left.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        btn_agregarP.setText("Agregar Productos");
-        btn_agregarP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarPActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_agregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 640, -1, -1));
-
-        btn_ActualizarP.setText("Actualizar");
-        btn_ActualizarP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ActualizarPActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_ActualizarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 630, -1, -1));
-
-        btn_guardarP.setText("guardar");
-        btn_guardarP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_guardarPActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_guardarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 630, -1, -1));
-
-        jLabel4.setText("Borrar");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 640, -1, -1));
-
-        txt_cliente.setBorder(null);
-        jPanel1.add(txt_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 220, 160, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 680));
 
@@ -234,7 +199,9 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_listadocompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_listadocompMouseClicked
-        // TODO add your handling code here:
+        Listado pro = new Listado(this.idUsuario);
+        pro.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btn_listadocompMouseClicked
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
@@ -257,31 +224,12 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         Rellenar();
     }//GEN-LAST:event_combo_tipoCActionPerformed
 
-    private void btn_guardarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarPActionPerformed
-        // TODO add your handling code here:
-        guardar();
-    }//GEN-LAST:event_btn_guardarPActionPerformed
-
-    private void btn_agregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarPActionPerformed
-        // TODO add your handling code here:
-        AgregarProductos agr = new AgregarProductos(this);
-        agr.setVisible(true);
-
-    }//GEN-LAST:event_btn_agregarPActionPerformed
-
     private void lbl_nuevoCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_nuevoCMouseClicked
         // TODO add your handling code here:
         NuevoCliente nuevo = new NuevoCliente();
         nuevo.setVisible(true);
 
     }//GEN-LAST:event_lbl_nuevoCMouseClicked
-
-    private void btn_ActualizarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActualizarPActionPerformed
-        // TODO add your handling code here:
-        combo_cliente.removeAllItems();
-        mostrarcliente();
-        listar();
-    }//GEN-LAST:event_btn_ActualizarPActionPerformed
 
     private void combo_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_clienteActionPerformed
         // TODO add your handling code here:
@@ -302,8 +250,8 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void btn_generarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_generarCMouseClicked
         // TODO add your handling code here:
-         guardar();
-        
+        guardar();
+
     }//GEN-LAST:event_btn_generarCMouseClicked
 
     public void Rellenar() {
@@ -336,7 +284,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
         }
 
-        Integer correlativo = this.getCorrelativo(txt_serie.getText());
+        Integer correlativo = this.getCorrelativo(txt_serie.getText()).get("numero");
         System.err.println("correlativo: " + correlativo);
         Integer correlativoValor = correlativo == null ? 1 : correlativo + 1;
         txt_numero.setText("000" + correlativoValor);
@@ -375,22 +323,22 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     }
 
-    private Integer getCorrelativo(String serie) {
-        String sql = "SELECT numero_comprobante from comprobante where serie_comprobante='" + serie + "' order by fecha desc limit 1";
+    private Map<String, Integer> getCorrelativo(String serie) {
+        String sql = "SELECT numero_comprobante,id_comprobante from comprobante where serie_comprobante='" + serie + "' order by fecha desc limit 1";
         System.out.println("sql: " + sql);
-        Integer numero_comprobante = null;
+        Map<String, Integer> map = new HashMap<>();
         try {
             cn = conexion.conectar();
             st = cn.createStatement();
             rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                numero_comprobante = Integer.parseInt(rs.getString("numero_comprobante"));
+                map.put("numero", Integer.parseInt(rs.getString("numero_comprobante")));
+                map.put("id", Integer.parseInt(rs.getString("id_comprobante")));
             }
-            cn.close();
-            return numero_comprobante;
+            return map;
         } catch (SQLException e) {
-            System.out.println("error" + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -538,13 +486,15 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
             JOptionPane.showMessageDialog(null, "Ingrese los campos obligatorios");
         } else {
             try {
-                cn = conexion.conectar();
+                cn = ConexionBD.conectar();
                 st = cn.createStatement();
 
                 st.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, "comprobante Registrado");
 
-                String sqlFacturado = "UPDATE carrito SET facturado=1";
+                Integer idcomprobante = this.getCorrelativo(txt_serie.getText()).get("id");
+
+                String sqlFacturado = "UPDATE carrito SET facturado=1, Identificador=" + idcomprobante+" where facturado=0";
                 st.executeUpdate(sqlFacturado);
 
                 this.Rellenar();
@@ -554,22 +504,19 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
             }
         }
     }
-/*
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Comprobante(0).setVisible(true);
             }
         });
-    }*/
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_ActualizarP;
-    private javax.swing.JButton btn_agregarP;
     private javax.swing.JLabel btn_agregarPr;
     private javax.swing.JLabel btn_clientes;
     private javax.swing.JLabel btn_descartar;
     private javax.swing.JLabel btn_generarC;
-    private javax.swing.JButton btn_guardarP;
     private javax.swing.JLabel btn_listadocomp;
     private javax.swing.JLabel btn_productos;
     private javax.swing.JComboBox<String> combo_cliente;
@@ -577,14 +524,12 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JDateChooser jdFecha;
     private javax.swing.JLabel lbl_nuevoC;
     private javax.swing.JTable tbl_products;
-    private javax.swing.JTextField txt_cliente;
     private javax.swing.JTextField txt_numero;
     private javax.swing.JTextField txt_serie;
     // End of variables declaration//GEN-END:variables

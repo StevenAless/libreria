@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="2001d476-b960-4aae-b3bb-3fc53fdd837b">
+	<property name="ireport.zoom" value="1.9965000000000082"/>
+	<property name="ireport.x" value="46"/>
+	<property name="ireport.y" value="3"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="data_json"/>
+	<import value="javax.imageio.ImageIO"/>
+	<import value="org.apache.commons.codec.binary.Base64"/>
+	<parameter name="FIRMA64" class="java.lang.String">
+		<defaultValueExpression><![CDATA["iVBORw0KGgoAAAANSUhEUgAAAZAAAAC+CAMAAAAssKkMAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAnVaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzE0NSA3OS4xNjM0OTksIDIwMTgvMDgvMTMtMTY6NDA6MjIgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIxLTA2LTA4VDIxOjMxOjAxLTA1OjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIxLTA2LTA4VDIxOjMyOjExLTA1OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMS0wNi0wOFQyMTozMjoxMS0wNTowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZiODMxYzMtNjEwOS0yMDRhLWI0OTUtOWE5NThlZjk3MTBlIiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NGI3OWI3MzgtYjc4OS1mOTQ4LTg3MDgtOTE5ODRlOGVlZjBlIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MjRmYTQ1N2ItODYyZC1mMjQ2LTg2MzItZDk0NmZkNTMxMjVlIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDoyNGZhNDU3Yi04NjJkLWYyNDYtODYzMi1kOTQ2ZmQ1MzEyNWUiIHN0RXZ0OndoZW49IjIwMjEtMDYtMDhUMjE6MzE6MDEtMDU6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6M2I3YTNiNjYtNTI5ZC1kMDQ2LTkxNGItMTQxYjhkZmU0MGNiIiBzdEV2dDp3aGVuPSIyMDIxLTA2LTA4VDIxOjMyOjExLTA1OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNvbnZlcnRlZCIgc3RFdnQ6cGFyYW1ldGVycz0iZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iZGVyaXZlZCIgc3RFdnQ6cGFyYW1ldGVycz0iY29udmVydGVkIGZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjQ2YjgzMWMzLTYxMDktMjA0YS1iNDk1LTlhOTU4ZWY5NzEwZSIgc3RFdnQ6d2hlbj0iMjAyMS0wNi0wOFQyMTozMjoxMS0wNTowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozYjdhM2I2Ni01MjlkLWQwNDYtOTE0Yi0xNDFiOGRmZTQwY2IiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjRmYTQ1N2ItODYyZC1mMjQ2LTg2MzItZDk0NmZkNTMxMjVlIiBzdFJlZjpvcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MjRmYTQ1N2ItODYyZC1mMjQ2LTg2MzItZDk0NmZkNTMxMjVlIi8+IDxwaG90b3Nob3A6VGV4dExheWVycz4gPHJkZjpCYWc+IDxyZGY6bGkgcGhvdG9zaG9wOkxheWVyTmFtZT0iTGlicmVyw61hIiBwaG90b3Nob3A6TGF5ZXJUZXh0PSJMaWJyZXLDrWEiLz4gPHJkZjpsaSBwaG90b3Nob3A6TGF5ZXJOYW1lPSJBIiBwaG90b3Nob3A6TGF5ZXJUZXh0PSJBIi8+IDxyZGY6bGkgcGhvdG9zaG9wOkxheWVyTmFtZT0icmVhIiBwaG90b3Nob3A6TGF5ZXJUZXh0PSJyZWEiLz4gPHJkZjpsaSBwaG90b3Nob3A6TGF5ZXJOYW1lPSI1NiIgcGhvdG9zaG9wOkxheWVyVGV4dD0iNTYiLz4gPC9yZGY6QmFnPiA8L3Bob3Rvc2hvcDpUZXh0TGF5ZXJzPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrlPVTYAAAAJcEhZcwAACxMAAAsTAQCanBgAAAIEUExURUdwTBYFdBYFdMDH6RYFdBYFdBkLehYFdCIZfhYFdABMixYFdACTrxYFdB0fgwCJqrK33RoLehYFdD43iCAXhgCjuAAwgBYFdAC9yADCy6CkzyAahxYFdACywBYFdNLa9xYFdBYFdABwnNbe+hYFdBYFdBYFdBYFdBYFdBYFdAC4xTMtoxYFdBYFdADGzRUOdtbe+hYFdADGzQDGzRYFdDMtozMto8zT8zMtozMtozMtowDGzRYFdNbe+gDGzQCuvgCaswBhldPb+DMtowDGzRYFdADEzADGzTMto9Tc+dTc+RYFdFpXmtbe+tXd+tXd+qqw1zMtowDFzdXd+dPb+ADGzTMtozMtozMto8XM7RYFdADGzRYFdJeZxxYFdDMtowDGzW1rpwDGzdbe+tPb+ACpuzMtoxYFdBYFdAC2wwB+owDGzdbe+gDFzQDCygDFzIqLvdXe+gDDzBYFdAA8hbrB5ABXkTMto9be+jMtozMtowC/yQgeejMto3t8sgCftjAmgNDX9QDGzQDFzNTc+ACFqABrmtTc+ACCpgCtvgBaktLa99be+gCdtQCdtQCApZKVw9LZ9gDGzQDGzdbe+gB4oQCWsQCKqgDGzQCApbO33QBMjACYs7G23ACXsQCqvHt8sgBnmK602pKVwwCrvQBhlZeZx4eIutbe+gDGzRYFdDMto2+hdukAAACodFJOUwAKN95jPhKFAVCVG74lBLbPByuNDs6NavD3vhdH3lv3MXWmd37f0vzoVen29yF3iBLD7xDxntHvviLriJEhItfFnr/c/XD6Zjjiz02WQzT8xi2s76+7rmB45avdtbaeUkKdmWaJ0o1ESuOuCAjVWM2umTNBkNeabVVFCxeJhKbKip7lSnCzokyxvWDbXZalfbKmHisqqoBWoDrHfmiisaxhJHagi4x5ScX6k4kAAB0DSURBVHja7J3fc9pWFseBASSMTQZGMc7IpjgBATaYYAMLhDpJCQ2Np83iNsBgBrJpgt02qWfjmaW465f91U12tp3udrvb7cO+9AHkf3KFkNCvq18gDB7f71MsXwlxPjrn3HPulWMyQUFBQUFBQUFBQc1C6CmezZZLrWqnU6PUqbZK5WwWt7uhaS5ebrzc7aQyhc1zkTbTlVoW2udihZVa7UzuXMIiV0hnMpXUWQma6ALlKnUqOalfZFJnVMjCXdBAF6tsNVUQw8ikaq0yBm0zA5XPMiIa6VSnS6UMFIXGmYF3tNMiGmetMpxSzUr2tjBW5drdLMwYs1NV6B2VVvYUGmWGySOzKXAOmMNnWwVW+fPcXA1ObmfbIcErvDluoWaHJpF7cO24M7ZkOVx1OFZPLBbPUsyJY4bPP9ESL3vkzmCskpHTH0HqRDhE8hQKJprFQw9uaGFe5bJHLgW7VDKyFBMDFAIcrJKN4knMqA/Capx7ZFpCVCbMjuE4ZsdPBz9cZcUCYVJZicCJIbHF3gZGK3u21Kqe1dqVVCWTokS33rNXtlr3J0h1JevWyd3EnuLco8scOy1Vz1KZwrmw8Z7LFQYtrZL9ClJxauExdJOlydI5j0d7mD2y3XalIG28j7CkK2et8lWrGPOkZhHxSbwEG/HIVQcPPtY9yxTO1ZRLp6rlq8QDD5I6RCBjlw2no/yRHqw44dWKOg2OyZVxE9dRWA8QMkR4x/ygGpslMlS4ytYym0Djb1K14mYhU0hn0rl0epNKJsyKVap7NUoWtzdJ6lMyYRkngYzqjwpuKtfSEhy580KlUqtVS90SXs7i2Sw19cripVarVaPmXgM0ldZVKOrdgahOIGQomddvmRJLIGU/leDIFSq1TrmEnZ66BslluDw1/Bd1wOU+LZdLrVQ63bkCgQtrkvoVCjp0LiRl2XyRyraEwYqKT7UWfupWm99SYLKlKxC1VglyLOV1NVTcbD+xUmrnhJsZqiWTdrhXoCpZF+T0aDIcDgcphcNJlVBGHOpwErZhkqnyF9FzmU4ZLp6L5AuyUYhI1ONF35HN4vF4/LY9XzFfTxBB+ZQfQpx6E0ghxXOPQqprh7sZwHV6ONFcPwSZF7dZ4w1CDkrDrzFPpdl6grehod2FxgdGZWsykXcoJoSlCNIAV49Bn6bPOGPTN+cd7TI0vYzMDg0dKrfN2wQxicbN6ieXc2zNN1oH6cJF28nBWbwNwHpJQxUnWhGVgJkqXCY0qO11Epf2WQibyllVURXYhsuEBtb1HqukbglalSkKd4sWWnD/lcHTMp8YSTKgpQRhCkOYzI2fl2EREZJQU75GzKb5XZKOtuyBoijuX/UVA/F8sz5Qs9lEitY9PwbrFnCCtwaF+b0u121EeQ6SS6nV5ajbjMWOinmq9IlGQwONmJODn6LRYCPucJrhHE1a6yHC9N6QWUosp7nXPrqK2cNsd1qKzYSWxQCiGINIJIo1BUgSwKod7Yy6iB0FG2JOjy+f0LEOEA3gkIBER4mQ2vSXzSAKlbk7ZrE29becEx4IQGrLAL96D65KR7SG7pHqymR9zB/JJ8Zq/4cIPwQglaXOJ7InsTddpKdl5laYTD9GI5EEjFqAHGEu8jJJOCL69aDtvpkCRivXyXo9TE6kOJwCg2RryBJxt6nsAWxc+dfrQXJSRZeg9YGlOyJHBN88zwBe+sesdYI0QgHoIkC5IkEwkTN6C5bYOfJEkjRGBKxGZOQZha1Q2MEdrqQkBbyjoZ44kkSins8jgfWit7geyDcbhMw5IRiz5GSPc3OtI+6oaLKLFZWdI5zIF/c8Ttxux8xut9vlQl0ut9uM2XGnzZsHFPERGLNkw9ZoA2QoCF4gcTmRcEjmSQ9Fg/XAkdPsdslaGHW5MUsgERVcIgBjlkLdPkokBGCrqXkpH5XZBhkm8hHN+1ec3kaYu1AeAlFKJAnZtobZA8YR1QWDY8JuTmrCP8ShmEhGZXtDYGSXH4gjSTSKY7Y/cGudSEIg6sqzEb7Oqwb9SBSUv5u+ifay2ykmURiy1ISwRPLss+tZDwJeaMg7DNh4suSNQCBqKrLeMFxnx4uEtCkYdxjVFjTDaa+qrEy+DRUHuyIlrfVgPhKDRrpQOZiyOrl31BAnj7rVAoPMhWuVSRphUcMjGLDAvzMzE1lAvdyED25MmF3RLiYSatqgc8xQmJcfrULhfAwWcLMVejIqPqLBgB1OTmevwyGRKLEOXz2YkzwyIJJch4l8brRHEQn7oB3mq0JMOqAd5kcRikjQAu0wP/IlSZKAGxHmjEgD7vicI1mjJNmEE985qhApIiG4N2SO5PJGyagVlupzRmQV2mGOolYxSYb90A5zJIoI4YRmmCN5k2QDTrXmjMil3kL1TU+q9y43kSjpvcS3/wkAyON3LzmRSzzVuv0YAKR365JHrdDlnWrdAvHofXDJqysreWnfY/4bEEjvw/m9490+rWfKRELNi7mbL17d2TGykPoIzKP3/bhX3Or3j59ydjsw3gRPNPAwmSLB4oUAedjvbxuJ5HsZII9va7sZsWn26UOvpwiE+VDVmLraOBT8/J++dulwkD9Qwx8YhgR9+Y4MkN6fxgLyeviFnkwPyO724LLXEcShVo/7LYINWq+mAmRreIJhSD6V49F7NBaQLe4bvaX/sWIzGAjtgncRSvpW0Hf60wBCO4iRSB7JAul9pH723+lbecN7VH8ZfSP7An2bK+vG8vhycNU1modT/4la5dDpIIYh+UGeR++3qmdbrtE3cp13+98N723NwwDpGwxk52BMHqZv9QBBNM76d7YFp02MBH2uAOTjl/qBOJF79KH71ikBeTYuD9PdaQC5Izlz++kkX+/lxwpAel/pB2JDkMV+f+MmgqDTAWLyIbR8enmYb0wBiMhBaCBfTOIg3yjxUO8wAoEwmhIQ5gN0/7eTrp/6UwAidZD+1kRf7z1FIL13xwhZjKYUspjrW/X/CcQfpwDka6nXrfx+gq4mCu4rcrXhc/1J3bFGH7opSOoP6SfpeGtXNDt5ZtrZEkybH27RMeBg66nMSAdynb4q7/e7W8eDI/tboxp+F3Svb4wHggIc5BqCTPCa6S1lB1HtMAKA2Gnr9L8zcUAecoF2f1do5tfbbBVJ4+BF5IMvgSOdDhGQnX3unDtKQD4zHsjX7wMcBEHGf10I/UAFiFqHEQCEsclTDsgL4ByENvP+AX3w4fBJfyL8bvs7wJHPBEBeC7Lq8YEcEBR/YDyQZ9Lz/owgh+M7yIdqPHqf6AbiuSvyELGGpnTzqoIbbwczpt0D8cjjHcBI5xv2+rxGjUhvAbf6777hQP4hdZCN+CQOIttX1NxhBACxMjlkSQ7INv382ha5I9cHPZCdA+nQY8BIJmTdXJKZdQ60YJ+wLNQGBNCs/CuCnIzP4/Y7qkBUOowagawsIgiyzBp2X2Dmz5GF+4jVxLr/jcUFauy1NW4KKRopAMLGDPqkxRUlIC8MB7L7AOggE+yu+FSdh0qHURuQu8xMeGGjP2rNs2a+Rv/Gwq45rS0zYz8fetOOZCQfCHPSxgJz0l15IK4Vw4EAHORfCDJJK/WRBiDKHUZNQDZGteLyCjMZGpn5xvAXZuZZ54YyRLYkI/lAhrPOGwujk+7KApGUhS+WFaUO5J9SHp8hEznID1p4KHcYNQHh7IUMh7/igAydhzp9mAxuckORNSaLiEbygRzzXGfog7JAfgTUC4pSBbIvBXJzMgd5rgmIYodRCxDeU48sD2+cC0T36MNONvhItSMeyQcyHLLM+4ANOSD/E1/4dxMCeW24gyj3FbV1GLUAuY4g6zY3ipodI4P9NAKyiDhQu1NhreKP4pE8IEObrAwcx46ibts6wrSaAUDWRNd9Pz4hEICD3B8kw/H1FcD4//2Vvg6jNiBeppdgYeLQoE5gzRwQrKJI9Yt4JA/IWxYIY4aYD1mUAYKJS4Y1FR4O/Q5CXXKi7ZKgvuJvfq2vw6gNiIXr1A6z+s8jINeYN8v/IgfkW/FIHpCfGSCjbl6MaXRJgUjKwnvI/2m7tuYmjiyse48uFpZkdLMj2YgXuwrLhR/0QBlfSmuXr7iw/eByucpeQy2Q2Bh8KaqgMLclsAkbQkI2G4CQpHYX/8vVaEaa7j6nZ7pnlH4KlqY16W9On9Pf+c6ZgN9uOK3eGmog/R7wGEOWfp0sIH+95tGHWI+N3/QhWX97mY3FjEyKADnjZ79JAaKR9mytkRP5kFcwQPVUsbAF73RcZ7g9EL0Yr7hJyLoSwygDSP0768OPppuPtAExopIuUmi5A350sd+kAImYHumjNf8/RFEWoHqzxJM8HjGQY0K8vBYJ4xWvZAh5rcQwSoW9N62zbcHcLiAg46JYNGADiHlCsbjEXQEgySH+SO3pacYM5Lo3A0F5xW5CyKOyCsMoBUi9xa636MMYBUjABORcix5pH1kSHCABCIj5AxuXucgHAPIbXD5P4vjbAI96jBBPPQswXvEhyRHSrcIwSnJZG8PNPFKbISR+DpB4+5D9RROHySYvNRGzBURrRbmNA70OyfCGkMt6D4+FXlbvKTSQs4R46nyDpQprhARyZFuFYTQBaY8ZCbY3n9WjQ26Zz7doFXYkSNQnBMSXwy9CAPkn3PD9HrZ7aCDTh54ShTivWCTE309ITYFhdAGIzjz1AUBKhEzC/PSa/ipaMSBhQmJ5KUB4BVCh6kWHjZxiTwgZ9KQVwHjFTGPOFCFFBYZRBpACs2Z5fRuKgGXuosjg9ngZoYh6BJAIuCifRwFJFcAZzsPyabuogXgKo7EShKOm0UVJBtnNHksC8goBJN/e6VuMVBQus6G2StALp2u7oik7QHw6GUPPftZkAnhA/o0cCztqIBOqOmN+3EEA2W/yNxcIOYKflb+SA6SxagggJJto/nE8kTUZQgjIBZN0N7NM44nJ5r/DtoBEjIsS40Y4kCU4INpPkJZ1X12VhKnNQtajgWC8YrlqJB//QvYRtL4VAAJODb5Q60DXWi4wwpTejaZVkBFKgW9G2/OLLjL2RNtj4a2JtY3pxkJe3L16ae+y2uLNYLEHmfdkIBivuExIj/n/KM8wugGkz4cC4utD8Ej77AERIRJRUgA9uXRXfu2+BAZS1w3EW+NmjFdcMOPoHkLkGUYpQAboLwyEfQJAfIEc4RjXuM8JEO6iARQQCQXQ7syXngzkhic8cF6xxcSUFBhGOUCi1BpHfEJAfKm+89RUuQD6TQ4QX4SePYQBoskogOpP9qTEo1Z9DqON89bJA0sVvm4nu9IqDGMUZBHSoXY+IdqyCX+4+cdS2DqNpaJo2iEdNh7yUjgu+GYcXJgKN0O0UGN26sftqF58rP0gsXbDqHjUW5MCjFcsP2pPmlRiGDVmGIfOJuBzlSWf9Tef9V+NoLtSaW2as5XKDjaj+C9jlYp5iFqtVOhviK6WVwAV9hyXDjGQximkoMcG9zvNK/Za3lWBYbzD+5nKin0ziHvQPucqI7KMT2WFv9T8pCIOQRQUQH9NqhuI5YeGL7sDBGttsk1lHyMqDCMHyNic/fm+IkjkT8m0KRi7I+4BYgOIQmFIfc3etwuUktaut9VBXtH6hgrDyAIyNmvLgO3Y6CqmHEtMRVL9lXv2gLw/7RgilzrjiNjxDHn6i4xEOIAeRb7BJuv9hfrGpxHGOxWjrOx4bMqDAoy1PbCdpj7Q/w7SqTvtVyXJ4tWkewNpQnpJtaRtDk0V0oGJAsMYpTe3hVWOrAw7nUY5h7Ck5vioKz8xNxwM2SmAHMYlLwbSFPepuRIBr8hQMYPSDCMDCItikJ208lliLKqkC5ht60gISE9BDZDTp6KbuC8508WnKoA8RlOFbHpAnmFkAClziomcA52JjB13eHCDAUSxMKSxnvc9GYgeB+/J44G1NqkBSao0wxjtFi1KmdmxKrJruai+XzkA8koVEKNeAjGQafnYYEYakG9teEVrhEm1LMUwigHpJlSWtCK/mIgfGVvxAshLZUBOt7wZiI6I9K5lxytS+64swygG5CGlillSWMzZEan0pjQgQAEk45Y1bwain/olCWSMVwwiAhZZhhEB5GibkP1u+mQzArmaYtEgv4pFZ0qg8tkLIL+duhhPPRqIrrSR63lyDU8VgthblmGEgBTbTKNf5NCD+zQhub9uL7fHniETz4fFoCMg6LEwf/I2ls3G3p7kBcdDyGKNqgZrP3vgFWEhr4Bh/NoRkGWoH+dccnmf5+w3Odgd0s21TerahW4HQJBiz/yLdi1C9RYOyWUlFksxfKYG1trkFzTdJckw8oDUMpYoF3db6xmY4NuuiWPfsc9CyNGLeUA+ghU/eUBfnkW54GFA815UBmRX4siO84qYJrVXjmHkAbE2rAHcQDA8CFmoCU3kGhSEcyMTtAEkRUjs1slNK2dYOMdfn8AWUyJR6DicY1+H1iYS45kDIBlCShc0LR0dCKNbTnnB3M/0miq96snMcG2XRV5kxQmPxgiKATHVLA+eJ8YNgT1SyjaBLCZ/OET7NU5fv3WczR4+T+BJ+w1Hgf0zr3gAhpEDZN2QUjEPAR9A6NoFKjjQjKx4UbAz3kP3KxPPLiMTSTI1ISAH1MLHXpy9aVagzqcjfn8kfYOqL2UHd9bewlz/yWF76kmUMHM8sH/jGRD+3MYBsgz90Q4XYSP5zqaVMGva3hm5jnc1IydM4WlkdB8KAUFlKeH2o5tsfh4DR4z6r+wtIhWFhedOGx8SrDnziqrjsS0g+7AseJU9gqJ1kWE+1LL2rFnutEnpJOgl7xb6kIPzoHyQmSA+SAg5gfVQrLShgGqUmfEWQWRUnVdUHRzDyAGyDUXlZZZVxjWc+qJSX7zyGN/w1tFqTF3ZsC2mTnyR/vkc0IVZQ68OBrLwer7HXj1anwR2d0aV0vqq3AFAOIaRAyST64xVrrcu/52P4TAJbZoQ9hgbBHFj6kK4ZJgK7A2jy5WAV66n7Xcso2x+sL/X7++5EM4xnT0caUobXlF9TNkBAh4/7Xd3dtgytA9cDDcQERjYsj0gpqlE0daAaSTQqjMtnoaAWFE/y8xHGCslMSDIG1LmFV2MMTEgNVj2+MHdj/zPvHzZPk1ghQX7EoAIx7zZWYUe72heETUQht9IzqMmYqMN0sY6gwfLMLKArEMN+LK7H/mvub8fsYlNUWF+nOVCVQHpJaAsu/4fW5nEMWwcN08QWP+lyCu6GQzDyAISBD493u3uR/4wd4Igm2IRtnbJES+A+HKw2GtSs8lxFRC5u1Yih2CWn2wsZKVDgDAMIw8ITweng+5+Y9N0DkHWpwsLA/voIE0dkD4IyDEVZk0gbWaAmlfrIgRExx/VeEV3Y1UMCGjRG3YLiOEv+1hAxB2A08zBUhmQ9LFdnWLPWdi1Aet0WSIgGZYQNmDUVjsGCM0wsoB0gz2+zy0gBldcYgERFx5HPG1ZWvwcAOTQcodd12GZexx9KkA0NhH/83hFlGHkAAELET1yCYgRroVYHyKu49O8+ZAIPNQ9sJYyMA4tBEvy9kALmUir6jA9MowsIEdgIUIunfqmcaAPsXIrm3ZtC94AATaQp2ygD3w6hId754EPSQT+RF4RYxg5HwIBoVncMpEfJiBM1Fy2AeQPT4D0FqDbtnzIIKC6pvEfeAeLqwS3rC11Eg+KYeQAAXtKaJOlulQBYTUQn8Rb1rInQN4jrTKsMGoQMrnfoTcB08UvRG2uv+8oIBbD6ARIaRvPJ8oCwur1PogBqQFAYGnNhjCnehvpiGxll0rwwPcSnQYmRSZxQNBXsZUzcsNWw8gBAsKgaAakQ1QAKWXYdIhoQZNfQ7b3Z3kdNdIKIEaF2IOwvVr9DTIN0vbv8EBeG7ssuTS2GkYnHxJmaVjpPSvaOu+ty0h/eZ6ueR970nrCN1DAkKeFBvPVaRkeN3kbmSYsXYLweUF2cew0jE6ABNjc7GNNcrTxXHaSNWKJXv0+Dt4hxdAXsXKa0V2sVwa1+x5gOd4ZGSXduKAL44+4XlFy2GkYnQCJc6kjxRfspvnkLF7pyIt/9fsYINhLwJA3dt3H9AuT9Eqm0fzsnoRw6wzes0kT6BVlB9QwXlnR5ADxc1eLHnHfItqZwA9qubBC0pE5RHUyiHCvWIHTFlZXO8RoA+IEazRVZ7RbSVRpeogXsKOtTR6RG36pAZSFNMPoBIgvx109J3Ryd5ZQFpcX/1ac8WjeRz+p4qLEJ3TThh+uot95QQZYGedNVHBqbYBbqEzoCzIgzSsuS7fnsNUwOgICWqdMjQhTA0gpbh/J8D++yk2wOIsqF/24Aq55rLs6c/fN6OjlreHb+BfyVTb1GcKt7fR0bebu6Oj9reHd0zqOa0lar7gg3UPTVsPoCEgcSnfBsi+1H/E5PozqQsodV2gjQUulm/dRIllVfXRr/J0r8QuTqouiBh1XjDlBX8UWVOjCnOM9K7V1OALSuBoIC1eZzWmReV5muS1pAK0INns4LFWmxOr3NKYDkRo3CVfiFyHkhYt5zgh6oGC84muFPv52VdLOgDSuXgBb3myrK0YF6SSww215D93VhyQJcfVcY031Q7gXsR9DVXwXEpQgyDcUsquSdgZEf8aL7sWRfsFBSKJg54CQyboLPCbAWye0NCHHylM9F+xCi3gJgkKPO5sqaQlAwopLusO7dbR2SAKQlEBH7bRhVaG4JUnEIYJonBW9TeR7Ty7dVJCLqqQlAGl20JLPUxU5LVxqAIqp5QDx/Y2Q6hfKnvgQe3lIAJdk221YDwSiJexVbOuKL1YQV0nLAJLGKgbEePAbeBjUj8gCkrReeyVfrKmXK/QjGUlCDlWmakp/k7K84mvFtx+Kq6RlADG6KXZL48Hnq6MyiASx+wioLuPptC7ZnRc8VTH5MLowKZIxY7xiw6WrNdEUVEn/+P/2rmY3bSAIA2XjuKRWTIsdDLFsyRcjoRx7hFYJF+dQqaceeuCAHHKqVNoTUk5GfYD2fRv/g5mdnTUkJ+bsGa3n886ud2e+IQKScsJRVvYfEMvcmQmWSe280RzmOgkkEUn8CO9VY1OfqIjMNtwmPX8PXtLTBBfOCSMJkMZZwsE3F63Nb+7hZkMt7qFzqQgD8iFWXJF3rGl5lcPba5IRSXHtkPMV59K9kuAq6a8aEZDGOK10srD8+6y4VtXhjdrz/wgvbH2vzr9yHMn6te4R91crOD1+y9TbERlXOGBB54rf5HslabwTRiIgOTslH5KP2fWuqvPqR3jal/cKH5BM85HwZd9Ob8D6rl1TxkRoaJLwd4ekm5taS3osD/uHfMkJIxWQnEw0LvYHlgArv0pUdcQZcZ3Vr6pmVtXL5ctKNVdCIsxlWg2K/S+HyRMRDm4/UjBcPx9hScdOGCs0scjfjV4++t6yvpQzw7IozeryKfaMiXWZg2EVt55D/jgYVpZZRJlIUfD5UWwXFaPH/2m/7Rk4rg/gjVMN4ngTNKTRAQGYq0FmcW4um4opMmQcTl4pu+DRxywfM2oHUevtMCvn7cGWZk9Z4WGIxH5A6rQ/bIGWujKAVJirq+KK2sgyl58RgQFShsv1n8V+vBlNi9J1h+wGI7quYjK7joztdgP8nQEnxUZOmqAlWwoQDBKXidc1WDthiGf4OMqIdvM7epqM+rE3+1fLxfRf2Uk3oPCFj+388fXmYrG86meGLjYFYYeNtLdqgy+v1wCk4YOm3qnkmJNfOQGhxxtSg2jLrmo2qysUOI6OL8wcoO48Q4GdEH37NvT2dfCAXynY5RonJv83GVPLmcGY1Ady3sqVvSHbuoUWjaPbRt3IzumeULGEMtGnxU15kpcjmiqNHaB8lE8qa8Qg1/ZzwIMkGDROIiG6Y+878S4c1LG0P+HaTvPkYmnROk5g33nx7sBzTT/s1naiNma+6SaGPNP/OdZPzj1EDgu4L2HoJK8q/wH0XucBn37QrAAAAABJRU5ErkJggg=="]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cliente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipocomprobante" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="serie" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0.00"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="impuesto" class="java.lang.String">
+		<defaultValueExpression><![CDATA["0.00"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tipodoc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="numdoc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="direccion" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="montoletras" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString language="json">
+		<![CDATA[]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String">
+		<property name="net.sf.jasperreports.jsonql.field.expression" value="descripcion"/>
+		<property name="net.sf.jasperreports.json.field.expression" value="descripcion"/>
+		<fieldDescription><![CDATA[.descripcion]]></fieldDescription>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<property name="net.sf.jasperreports.jsonql.field.expression" value="codigo"/>
+		<property name="net.sf.jasperreports.json.field.expression" value="codigo"/>
+		<fieldDescription><![CDATA[codigo]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.jsonql.field.expression" value="precio"/>
+		<property name="net.sf.jasperreports.json.field.expression" value="precio"/>
+		<fieldDescription><![CDATA[precio]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<property name="net.sf.jasperreports.jsonql.field.expression" value="cantidad"/>
+		<property name="net.sf.jasperreports.json.field.expression" value="cantidad"/>
+		<fieldDescription><![CDATA[cantidad]]></fieldDescription>
+	</field>
+	<field name="preciototal" class="java.math.BigDecimal">
+		<property name="net.sf.jasperreports.jsonql.field.expression" value="preciototal"/>
+		<property name="net.sf.jasperreports.json.field.expression" value="preciototal"/>
+		<fieldDescription><![CDATA[preciototal]]></fieldDescription>
+	</field>
+	<variable name="IMGFIRMA64" class="java.awt.Image" resetType="None">
+		<variableExpression><![CDATA[ImageIO.read(new ByteArrayInputStream(Base64.decodeBase64($P{FIRMA64}.getBytes("UTF-8"))))]]></variableExpression>
+	</variable>
+	<title>
+		<band height="167" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="373" y="2" width="182" height="92" forecolor="#666666" uuid="6176c5dd-e0aa-4a90-9b30-d1095e5e75dd"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="0" y="109" width="95" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="c7accf1e-74a2-4b29-868d-d063b85b80ed"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Señor (es)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="0" y="123" width="95" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="9d983701-a0bc-4ea4-a389-9aad388c0751"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Nro. de Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="0" y="137" width="95" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="0a996d66-51d3-46da-a26f-12ee5abd50ee"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="394" y="109" width="67" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="bbea1628-59f7-4741-a96f-7d30fb45bc79"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Fecha Emisión]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="123" width="67" height="13" isPrintWhenDetailOverflows="true" uuid="6d0e4723-af73-4646-ac6d-2f0cc249be96"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tipo de moneda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="0" y="151" width="95" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF" uuid="6a73cccd-ae6d-47ac-813a-a01dbdaa7d0d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Código del Vendedor]]></text>
+			</staticText>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" evaluationTime="Report">
+				<reportElement mode="Transparent" x="0" y="0" width="174" height="100" forecolor="#000000" backcolor="#FFFFFF" uuid="1397cdbc-40f9-49ae-8bb9-36b27228d63b"/>
+				<graphicElement fill="Solid"/>
+				<imageExpression><![CDATA[$V{IMGFIRMA64}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="373" y="32" width="182" height="36" forecolor="#333333" backcolor="#EFEFEF" uuid="db20ecca-07d9-4493-804b-14ac13f4733f"/>
+			</rectangle>
+			<textField>
+				<reportElement x="373" y="33" width="182" height="34" uuid="aa7c56ad-2c74-400a-acb0-f36c2e7017ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipocomprobante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="71" width="185" height="20" uuid="2db94906-a95c-4820-a073-10457bcaae1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="109" width="95" height="13" uuid="951be50b-06aa-4e47-b3df-fd34571fbab5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="123" width="95" height="13" uuid="aa2a5009-0ad9-47ff-94f5-e312b5576911"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": SOLES"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="109" width="285" height="13" uuid="f5cd0f78-ab5d-4b2d-8e80-948014fa224d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$P{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="123" width="285" height="13" uuid="879fcfac-2f7f-4ae3-824f-e9153db7e8ae"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$P{tipodoc}+ " "+ $P{numdoc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="137" width="285" height="13" uuid="e6a45708-92ff-4423-96d7-f35b117ed3c3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$P{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="151" width="285" height="13" uuid="99e9bff0-f535-4ba5-889b-8197dd616d4f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "+$P{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="18">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="21f07742-0483-475a-ab8d-1f154a78c0ed"/>
+			</line>
+			<line>
+				<reportElement x="0" y="17" width="555" height="1" uuid="9c901444-6c23-453b-81fd-31b0456dfb36"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="18" uuid="cf87bc09-8f59-466c-9e82-b180a99d428a"/>
+			</line>
+			<line>
+				<reportElement x="37" y="1" width="1" height="16" uuid="0172ad44-4ca4-4d8c-97df-0114cbbc0319"/>
+			</line>
+			<line>
+				<reportElement x="417" y="1" width="1" height="16" uuid="df5ae52c-c6ee-406c-9850-c540f2b5dd73"/>
+			</line>
+			<line>
+				<reportElement x="554" y="1" width="1" height="16" uuid="0b785a07-7ed0-4b38-b9a3-1ef62dff3878"/>
+			</line>
+			<line>
+				<reportElement x="485" y="1" width="1" height="16" uuid="52150a05-61a8-4ea4-b815-79ff0dff4a09"/>
+			</line>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="38" y="1" width="55" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="06a93247-2d5d-4767-9976-7b667d7e42ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="94" y="1" width="323" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="fa322854-48f1-44a5-9797-9d6057107d35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="418" y="1" width="67" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="d81103b9-3fb7-4980-a3c7-91f522cfa27e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Precio Vent. Unit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="486" y="1" width="68" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="526e6900-90ea-4c28-bba6-5f9686d06309"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-12" mode="Transparent" x="1" y="1" width="36" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="aeec6057-8115-4c1a-a9f0-c8ccd6fd664d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="93" y="1" width="1" height="16" uuid="968a29b7-4f31-42ff-95f8-304c3f63fafa"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11">
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="554" y="-13" width="1" height="13" isPrintWhenDetailOverflows="true" uuid="bfba6dcb-cca2-4ef0-9928-707cd4de2149"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="80bb8b29-3ab8-4cf7-9395-d6b440cb7ac1"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="93" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="75ed2813-c253-4e5b-9a69-1781a6c98909"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="37" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="93dc61fa-32d8-4452-9369-35b5bcd1c47b"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="485" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="b4c0eb2d-abaa-4cb2-950b-cf29ebf025bb"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="417" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="dd1a5601-33f8-4394-93b3-dd150e75ba2f"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="554" y="0" width="1" height="11" isPrintWhenDetailOverflows="true" uuid="84ced9f9-7d3b-42c3-9b64-2ef715b3850a"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="315" height="11" uuid="1679b720-41ec-4323-8998-3eed5715dd1f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="0" width="53" height="11" uuid="16ccad76-02a9-4aa9-939e-48ddcedae988"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="36" height="11" uuid="797c4fdc-2ee7-44a4-b61f-4a4ee68c319c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="418" y="0" width="64" height="11" uuid="fee96283-9d31-45f6-848a-32c3a4a22b48"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="486" y="0" width="65" height="11" uuid="8443e9da-3428-4505-907d-d6be8d227f7b"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{preciototal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22">
+			<line>
+				<reportElement mode="Transparent" x="0" y="9" width="555" height="1" uuid="d672e456-5e36-40cd-a073-2f3c07b2d336"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Solid" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="480" y="9" width="52" height="10" uuid="56c61048-839f-4b97-9dc8-a7ded9744020"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="533" y="9" width="20" height="10" uuid="ad40c2f7-cba3-4631-b53a-46d4cfc26d7d"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="1" width="36" height="19" uuid="39e8e90d-10e7-438f-9491-731b20386700"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Son :]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="1" y="0" width="554" height="1" uuid="b4c1b3ad-c90c-4bb7-bb11-ca1561323b1f"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="f8cbc0d2-b4e0-4ba2-b02d-cc8e4447ae29"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="20" isPrintWhenDetailOverflows="true" uuid="e23fb048-33c5-4e48-9ea8-720e29ebd9f9"/>
+			</line>
+			<line>
+				<reportElement x="37" y="1" width="1" height="19" isPrintWhenDetailOverflows="true" uuid="19834f15-e7e0-4092-a6ee-ef9321e5f995"/>
+			</line>
+			<line>
+				<reportElement x="417" y="20" width="1" height="31" isPrintWhenDetailOverflows="true" uuid="0786d0c5-3d03-4d3c-92ea-121b58455b9b"/>
+			</line>
+			<line>
+				<reportElement x="418" y="50" width="136" height="1" uuid="ee85c759-9d6d-44fa-9a65-9a19370a0dd5"/>
+			</line>
+			<line>
+				<reportElement x="554" y="0" width="1" height="51" isPrintWhenDetailOverflows="true" uuid="34b2c77f-d613-4f71-b7da-25dfd87c61bd"/>
+			</line>
+			<textField>
+				<reportElement x="448" y="25" width="29" height="10" uuid="4b0447d4-dbd0-4f73-955d-1d354fa8af13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["18%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="element-8" mode="Transparent" x="421" y="36" width="59" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="1eccec3b-4211-48db-a16e-832b70df5ebe"/>
+				<textElement rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[IMPORTE TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="element-8" mode="Transparent" x="421" y="25" width="27" height="10" forecolor="#000000" backcolor="#FFFFFF" uuid="0ef8e477-ab34-4dfd-8a98-8f25b870060c"/>
+				<textElement rotation="None">
+					<font fontName="Arial" size="7" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[I.G.V.]]></text>
+			</staticText>
+			<textField pattern="#,##0.00##;(#,##0.00##-)" isBlankWhenNull="true">
+				<reportElement x="502" y="25" width="49" height="10" uuid="515404a1-2c68-482f-9c46-5f4234fbca71"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($P{impuesto})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00##;(#,##0.00##-)" isBlankWhenNull="true">
+				<reportElement x="502" y="36" width="49" height="10" isPrintWhenDetailOverflows="true" uuid="a043e0d4-1eb3-42d5-946d-24559b8c88e8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Double($P{total})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="36" width="21" height="10" uuid="1d31441f-b9b0-4286-bd61-97d34acf290d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/. "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="25" width="21" height="10" uuid="73c0e282-e6f3-4498-924c-b27852c3b54a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["S/. "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="41" y="1" width="511" height="19" uuid="02a87953-a732-4248-87eb-06a431afd13e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{montoletras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

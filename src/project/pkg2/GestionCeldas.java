@@ -17,6 +17,7 @@ public class GestionCeldas extends DefaultTableCellRenderer {
     private Font bold = new Font("Verdana", Font.BOLD, 12);
     private JLabel label = new JLabel();
     private ImageIcon iconoBuscar = new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/icon.png"));
+    private ImageIcon iconoPdf = new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/icon.png"));
 
     public GestionCeldas() {
 
@@ -31,6 +32,14 @@ public class GestionCeldas extends DefaultTableCellRenderer {
         if (tipo.equals("icono")) {
             if (String.valueOf(value).equals("icono")) {
                 label.setIcon(iconoBuscar);
+            }
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+            return label;
+        }
+        if (tipo.equals("iconopdf")) {
+            if (String.valueOf(value).equals("iconopdf")) {
+                label.setIcon(iconoPdf);
             }
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
