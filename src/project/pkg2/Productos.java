@@ -28,17 +28,20 @@ public class Productos extends javax.swing.JFrame {
     ResultSet rs;
     DefaultTableModel modeloP;
     static int idP;
-    Integer idUsuario ;
+    Integer idUsuario = null;
+    Integer idPermisos = null;
     /**
      * Creates new form Productos
      */
-    public Productos(Integer idUsuario) {
+    public Productos(Integer idUsuario, Integer permisos) {
         this.idUsuario = idUsuario;
+        this.idPermisos = permisos;
         initComponents();
         setLocationRelativeTo(null);
         this.setBackground(new Color(0,0,0,0));
         jPanel1.setBackground(new Color(0,0,0,0));
         listarP(txt_buscarP.getText());
+        visible();
     }
 
     /**
@@ -52,7 +55,7 @@ public class Productos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btn_comprobante = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        menu_listado = new javax.swing.JLabel();
         btn_clientes = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btn_guardarP = new javax.swing.JLabel();
@@ -68,6 +71,7 @@ public class Productos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDatosP = new javax.swing.JTable();
         btn_actualizar = new javax.swing.JButton();
+        btn_usuarios = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -83,10 +87,15 @@ public class Productos extends javax.swing.JFrame {
                 btn_comprobanteMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_comprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jPanel1.add(btn_comprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 190, 270, 70));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu2.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+        menu_listado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu2.png"))); // NOI18N
+        menu_listado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menu_listadoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(menu_listado, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 280, 270, 70));
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/Menu-Clientes.png"))); // NOI18N
         btn_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,10 +103,10 @@ public class Productos extends javax.swing.JFrame {
                 btn_clientesMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/Menu-productos.png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 380, 270, -1));
 
         btn_guardarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/Boton-agregar.png"))); // NOI18N
         btn_guardarP.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -105,7 +114,7 @@ public class Productos extends javax.swing.JFrame {
                 btn_guardarPMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_guardarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 70, -1, -1));
+        jPanel1.add(btn_guardarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, -1, -1));
 
         btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Boton-editar.png"))); // NOI18N
         btn_editar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,8 +191,16 @@ public class Productos extends javax.swing.JFrame {
         });
         jPanel1.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 600, -1, -1));
 
+        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Usuarios/Menu5.png"))); // NOI18N
+        btn_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_usuariosMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 560, 270, 60));
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/panel-right.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, -1, 680));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 680));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Panel-left.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 680));
@@ -211,6 +228,7 @@ public class Productos extends javax.swing.JFrame {
         lbl_nombre.setText(""+nombre);
         lbl_stock.setText(""+stock);
         lbl_precioventa.setText(""+precio_venta);
+        visible();
         } 
     }//GEN-LAST:event_TablaDatosPMouseClicked
 
@@ -224,7 +242,6 @@ public class Productos extends javax.swing.JFrame {
     private void btn_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editarMouseClicked
         // TODO add your handling code here:
         EditarProducto edit = new EditarProducto();
-        
         edit.setVisible(true);
     }//GEN-LAST:event_btn_editarMouseClicked
 
@@ -246,17 +263,39 @@ public class Productos extends javax.swing.JFrame {
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
         // TODO add your handling code here:
-        Clientes clientes = new Clientes(this.idUsuario);
+        Clientes clientes = new Clientes(this.idUsuario,this.idPermisos);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
 
     private void btn_comprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprobanteMouseClicked
         // TODO add your handling code here:
-        Comprobante comp = new Comprobante(null);
+        Comprobante comp = new Comprobante(this.idUsuario,this.idPermisos);
         comp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_comprobanteMouseClicked
+
+    private void menu_listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_listadoMouseClicked
+        // TODO add your handling code here:
+        Listado pro = new Listado(this.idUsuario,this.idPermisos);
+        pro.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_menu_listadoMouseClicked
+
+    private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
+        // TODO add your handling code here:
+        AdminUsuarios user = new AdminUsuarios(this.idUsuario,this.idPermisos);
+        user.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_usuariosMouseClicked
+    
+    void visible(){
+        if(idPermisos == 1){
+            btn_usuarios.setVisible(true);
+        } else {
+            btn_usuarios.setVisible(false);
+        }
+    }
     
     void listarP(String nombre)  { //buscar()
     
@@ -339,9 +378,9 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JLabel btn_editar;
     private javax.swing.JLabel btn_eliminar;
     private javax.swing.JLabel btn_guardarP;
+    private javax.swing.JLabel btn_usuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -351,6 +390,7 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_precioventa;
     private javax.swing.JLabel lbl_stock;
+    private javax.swing.JLabel menu_listado;
     public static javax.swing.JTextField txt_buscarP;
     // End of variables declaration//GEN-END:variables
 }

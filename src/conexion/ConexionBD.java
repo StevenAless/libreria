@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    public static String url = "jdbc:mysql://localhost/login_bd";
-    public static String usuario = "root";
+    public static String url="jdbc:mysql://localhost/login_bd";
+    public static String usuario="root";
     public static String contraseña = "figueroa";
     public static String clase = "com.mysql.jdbc.Driver";
 

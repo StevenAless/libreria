@@ -19,7 +19,7 @@ public class Metodos_sql {
         int result = 0;
         Connection conection = null;
 
-        String sentencia_guardar = ("INSERT INTO usuarios (nombre,apellidos,correo,contraseña) VALUES (?,?,?,?)");
+        String sentencia_guardar = ("INSERT INTO usuarios (nombre,apellidos,correo,contraseña,permisos) VALUES (?,?,?,?,0)");
         try {
             conection = ConexionBD.conectar();
             sentencia_preparada = conection.prepareStatement(sentencia_guardar);
@@ -45,17 +45,19 @@ public class Metodos_sql {
         Map<String, String> dato  = new HashMap();
         try {
             conection = ConexionBD.conectar();
-            String sentencia_buscar = ("SELECT id_usuario,nombre,apellidos FROM usuarios WHERE correo = '" + correo + "'");
+            String sentencia_buscar = ("SELECT id_usuario,nombre,apellidos, permisos FROM usuarios WHERE correo = '" + correo + "'");
             sentencia_preparada = conection.prepareStatement(sentencia_buscar);
             resultado = sentencia_preparada.executeQuery();
             if (resultado.next()) {
                 int id_usuario = resultado.getInt("id_usuario");
                 String nombre = resultado.getString("nombre");
                 String apellidos = resultado.getString("apellidos");
+                int permisos = resultado.getInt("permisos");
                 busqueda_nombre = (nombre + " " + apellidos);
                 busqueda_id = id_usuario;
                 dato.put("nombre", busqueda_nombre);
                 dato.put("id",String.valueOf(id_usuario));
+                dato.put("permisos",String.valueOf(permisos));
             }
             conection.close();
 

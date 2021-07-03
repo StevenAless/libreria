@@ -18,6 +18,7 @@ public class Login extends javax.swing.JFrame {
 
     public Map<String,String> busqueda_nombre;
     static int busqueda_id;
+    
 
     /**
      * Creates new form Login
@@ -169,7 +170,8 @@ public class Login extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Bienvenido(a) \n" + busqueda_nombre.get("nombre"));
 
-            Comprobante comp = new Comprobante(Integer.valueOf(busqueda_nombre.get("id")));
+            Comprobante comp = new Comprobante(Integer.valueOf(busqueda_nombre.get("id")),Integer.valueOf(busqueda_nombre.get("permisos")));
+            
             comp.setVisible(true);
             this.dispose();
         } else {

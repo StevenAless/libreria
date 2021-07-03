@@ -42,9 +42,11 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     double Ptotal = 0;
     Integer cliente;
     Integer idUsuario = null;
+    Integer idPermisos = null;
 
-    public Comprobante(Integer id) {
+    public Comprobante(Integer id, Integer permisos) {
         this.idUsuario = id;
+        this.idPermisos = permisos;
         initComponents();
         this.tbl_products.addMouseListener(this);
         setLocationRelativeTo(null);
@@ -52,6 +54,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         jPanel1.setBackground(new Color(0, 0, 0, 0));
         mostrarcliente();
         jdFecha.setDateFormatString("dd/MM/yyyy");
+        visible();
     }
     DecimalFormat df = new DecimalFormat("0.00");
 
@@ -76,6 +79,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         btn_agregarPr = new javax.swing.JLabel();
         btn_descartar = new javax.swing.JLabel();
         btn_generarC = new javax.swing.JLabel();
+        btn_usuarios = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -93,7 +97,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
                 combo_clienteActionPerformed(evt);
             }
         });
-        jPanel1.add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 280, 50));
+        jPanel1.add(combo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, 260, 50));
 
         combo_tipoC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Tipo Comprobante", "Factura Electronica", "Boleta Electronica" }));
         combo_tipoC.addActionListener(new java.awt.event.ActionListener() {
@@ -101,17 +105,22 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
                 combo_tipoCActionPerformed(evt);
             }
         });
-        jPanel1.add(combo_tipoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 260, 40));
+        jPanel1.add(combo_tipoC, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 260, 50));
 
         txt_serie.setToolTipText("");
         txt_serie.setBorder(null);
-        jPanel1.add(txt_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 50, 20));
+        jPanel1.add(txt_serie, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 50, 20));
 
         txt_numero.setBorder(null);
-        jPanel1.add(txt_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, 60, 20));
+        txt_numero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_numeroActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 140, 50, 20));
 
         jdFecha.setDateFormatString("yyyy/MM/dd");
-        jPanel1.add(jdFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 130, 160, 40));
+        jPanel1.add(jdFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 160, 40));
 
         tbl_products.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,10 +136,10 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         tbl_products.setEnabled(false);
         jScrollPane1.setViewportView(tbl_products);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, 720, 190));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 330, 720, 220));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/Menu1.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 190, 270, 70));
 
         btn_listadocomp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu2.png"))); // NOI18N
         btn_listadocomp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,7 +147,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
                 btn_listadocompMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_listadocomp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        jPanel1.add(btn_listadocomp, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 280, 270, 70));
 
         btn_productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu-productos.png"))); // NOI18N
         btn_productos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,7 +155,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
                 btn_productosMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        jPanel1.add(btn_productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 380, 270, -1));
 
         btn_clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu4.png"))); // NOI18N
         btn_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -154,7 +163,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
                 btn_clientesMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
+        jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 470, 270, -1));
 
         lbl_nuevoC.setText("+ nuevo");
         lbl_nuevoC.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -188,8 +197,16 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         });
         jPanel1.add(btn_generarC, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 570, -1, -1));
 
+        btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Usuarios/Menu5.png"))); // NOI18N
+        btn_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_usuariosMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 560, 270, 60));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/panel-right-2.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 850, 680));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 860, 680));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Panel-left.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -200,14 +217,14 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_listadocompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_listadocompMouseClicked
-        Listado pro = new Listado(this.idUsuario);
+        Listado pro = new Listado(this.idUsuario, this.idPermisos);
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_listadocompMouseClicked
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
         // TODO add your handling code here:
-        Productos pro = new Productos(this.idUsuario);
+        Productos pro = new Productos(this.idUsuario,this.idPermisos);
         pro.setVisible(true);
         this.dispose();
 
@@ -215,7 +232,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
         // TODO add your handling code here:
-        Clientes clientes = new Clientes(this.idUsuario);
+        Clientes clientes = new Clientes(this.idUsuario,this.idPermisos);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
@@ -234,7 +251,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void combo_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_clienteActionPerformed
         // TODO add your handling code here:
-        System.out.println(combo_cliente.getSelectedIndex());
+        System.out.println("combo index: "+combo_cliente.getSelectedIndex());
 
     }//GEN-LAST:event_combo_clienteActionPerformed
 
@@ -252,9 +269,27 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     private void btn_generarCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_generarCMouseClicked
         // TODO add your handling code here:
         guardar();
-
     }//GEN-LAST:event_btn_generarCMouseClicked
 
+    private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
+        // TODO add your handling code here:
+        AdminUsuarios user = new AdminUsuarios(this.idUsuario,this.idPermisos);
+        user.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btn_usuariosMouseClicked
+
+    private void txt_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_numeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_numeroActionPerformed
+
+    void visible (){
+        if(idPermisos == 1){
+            btn_usuarios.setVisible(true);
+        } else {
+            btn_usuarios.setVisible(false);
+        }
+    }
+    
     public void Rellenar() {
         String sql = "select * from numeracion where id_numeracion=1";
         combo_tipo = combo_tipoC.getSelectedItem().toString();
@@ -505,14 +540,14 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
             }
         }
     }
-
+/*
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Comprobante(0).setVisible(true);
             }
         });
-    }
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_agregarPr;
     private javax.swing.JLabel btn_clientes;
@@ -520,6 +555,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel btn_generarC;
     private javax.swing.JLabel btn_listadocomp;
     private javax.swing.JLabel btn_productos;
+    private javax.swing.JLabel btn_usuarios;
     private javax.swing.JComboBox<String> combo_cliente;
     private javax.swing.JComboBox<String> combo_tipoC;
     private javax.swing.JLabel jLabel1;
