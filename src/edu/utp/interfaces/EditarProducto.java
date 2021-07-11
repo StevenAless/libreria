@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.pkg2;
+package edu.utp.interfaces;
 
 import conexion.ConexionBD;
 import static conexion.Metodos_sql.conexion;
@@ -16,8 +16,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static project.pkg2.NuevoProducto.combo_categoria;
-import static project.pkg2.Productos.idP;
+import static edu.utp.interfaces.NuevoProducto.combo_categoria;
+import static edu.utp.interfaces.Productos.idP;
 
 /**
  *

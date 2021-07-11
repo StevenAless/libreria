@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.pkg2;
+package edu.utp.interfaces;
 import conexion.ConexionBD;
 import static conexion.Metodos_sql.sql;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import static project.pkg2.Clientes.id;
+import static edu.utp.interfaces.Clientes.id;
 
 /**
  *
@@ -184,16 +184,16 @@ public class EditarCliente extends javax.swing.JFrame {
            
            
             while(rs.next()){
-            clientes[0]=rs.getString("id_cliente");    
-            clientes[1]=rs.getString("nombre");
-            clientes[2]=rs.getString("tipo_documento");
-            clientes[3]=rs.getString("numero_documento");
-            clientes[4]=rs.getString("direccion");
-            clientes[5]=rs.getString("departamento");
-            clientes[6]=rs.getString("provincia");
-            clientes[7]=rs.getString("distrito");
-            clientes[8]=rs.getString("telefono");
-            clientes[9]=rs.getString("correo");
+                clientes[0] = rs.getString("id_cliente");
+                clientes[1] = rs.getString("nombre");
+                clientes[2] = rs.getString("tipo_documento");
+                clientes[3] = rs.getString("numero_documento");
+                clientes[4] = rs.getString("direccion");
+                clientes[5] = rs.getString("departamento");
+                clientes[6] = rs.getString("provincia");
+                clientes[7] = rs.getString("distrito");
+                clientes[8] = rs.getString("telefono");
+                clientes[9] = rs.getString("correo");
             }
             
             txt_name.setText(""+clientes[1]);
@@ -207,9 +207,9 @@ public class EditarCliente extends javax.swing.JFrame {
             txt_correo.setText(""+clientes[9]);
             
             
-        }catch (SQLException e){
-             System.out.println("error : "+e.getMessage());
-            System.out.println("esto viene de editar error id_cliente:"+id);
+        }catch (SQLException e) {
+            System.out.println("error : " + e.getMessage());
+            System.out.println("esto viene de editar error id_cliente:" + id);
         }
     }
     

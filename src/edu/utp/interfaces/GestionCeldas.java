@@ -1,4 +1,4 @@
-package project.pkg2;
+package edu.utp.interfaces;
 
 import java.awt.Color;
 import java.awt.Component;

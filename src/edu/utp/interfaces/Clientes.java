@@ -1,5 +1,5 @@
+package edu.utp.interfaces;
 
-package project.pkg2;
 import conexion.ConexionBD;
 import java.awt.Color;
 //import conexion.Metodos_sql;
@@ -8,38 +8,42 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 //import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Casa
  */
 public class Clientes extends javax.swing.JFrame {
-    
+
     ConexionBD conexion = new ConexionBD();
     Connection cn;
     Statement st;
     ResultSet rs;
     DefaultTableModel modelo;
     static int id;
-    Integer idUsuario ;
+    Integer idUsuario;
     Integer idPermisos;
+    Cliente seleccionado = null;
+
     /**
      * Creates new form Clientes
      */
-    public Clientes(Integer idUsuario,Integer permisos) {
+    public Clientes(Integer idUsuario, Integer permisos) {
         this.idUsuario = idUsuario;
         this.idPermisos = permisos;
         initComponents();
         setLocationRelativeTo(null);
         listar(txtbuscar.getText());
-        this.setBackground(new Color(0,0,0,0));
-        jPanel1.setBackground(new Color(0,0,0,0));
+        this.setBackground(new Color(0, 0, 0, 0));
+        jPanel1.setBackground(new Color(0, 0, 0, 0));
         visible();
-        
+
     }
 
     /**
@@ -165,11 +169,11 @@ public class Clientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRE", "DNI", "RUC"
+                "ID", "NOMBRES", "APELLIDOS", "DNI", "RUC"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -208,41 +212,69 @@ public class Clientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void TablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDatosMouseClicked
         // TODO add your handling code here:
-        int fila=TablaDatos.getSelectedRow();
-        if(fila==-1){
-        JOptionPane.showMessageDialog(null,"Ingrese los campos obligatorios");
-        }else{
-        id=Integer.parseInt((String)TablaDatos.getValueAt(fila,0).toString());
-        String nombre=(String)TablaDatos.getValueAt(fila,1);
-        String tipo_docu=(String)TablaDatos.getValueAt(fila,2);
-        String num_docu=(String)TablaDatos.getValueAt(fila,3);
+        int fila = TablaDatos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Ingrese los campos obligatorios");
+        } else {
+            // TODO
+            id = Integer.parseInt((String) TablaDatos.getValueAt(fila, 0).toString());
+            String nombre = (String) TablaDatos.getValueAt(fila, 1);
+            String apellidos = (String) TablaDatos.getValueAt(fila, 2);
+            String tipo_docu = (String) TablaDatos.getValueAt(fila, 3);
+            String num_docu = (String) TablaDatos.getValueAt(fila, 4);
 
-        lbl_id.setText(""+id);
-        lbl_name.setText(""+nombre);
-        lbl_num.setText(""+num_docu);
-        lbl_type.setText(""+tipo_docu);
-        
-        
+            lbl_id.setText("" + id);
+            lbl_name.setText("" + nombre +" "+ apellidos);
+            lbl_num.setText("" + num_docu);
+            lbl_type.setText("" + tipo_docu);
         }
-  
     }//GEN-LAST:event_TablaDatosMouseClicked
+
+    public boolean obtenerCliente(Integer id) {
+        String sql = "select * from clientes where id_cliente=" + id;
+        try {
+            cn = conexion.conectar();
+            st = cn.createStatement();
+            rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                this.seleccionado = new Cliente();
+                this.seleccionado.setId_cliente(rs.getInt("id_cliente"));
+                this.seleccionado.setNombre(rs.getString("nombre"));
+                this.seleccionado.setApellidos(rs.getString("apellidos"));
+                this.seleccionado.setTipo_documento(rs.getString("tipo_documento"));
+                this.seleccionado.setNumero_documento(rs.getString("numero_documento"));
+                this.seleccionado.setDireccion(rs.getString("direccion"));
+                this.seleccionado.setDepartamento(rs.getString("departamento"));
+                this.seleccionado.setProvincia(rs.getString("provincia"));
+                this.seleccionado.setDistrito(rs.getString("distrito"));
+                this.seleccionado.setTelefono(rs.getString("telefono"));
+                this.seleccionado.setCorreo(rs.getString("correo"));
+            }
+            return true;
+        } catch (SQLException e) {
+            System.out.println("error : " + e.getMessage());
+            System.out.println("esto viene de editar error id_cliente:" + id);
+        }
+        return false;
+    }
 
     private void btn_editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_editMouseClicked
         // TODO add your handling code here:
-        EditarCliente edit = new EditarCliente();
-        //edit.lbl_id2.setText((String)lbl_id.getText().toString());
-        edit.setVisible(true);
-
+        if (this.obtenerCliente(id) && Objects.nonNull(this.seleccionado.getId_cliente())) {
+            NuevoCliente edit = new NuevoCliente(this, this.seleccionado);
+            edit.setVisible(true);
+        }
     }//GEN-LAST:event_btn_editMouseClicked
 
     private void btn_nuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_nuevoMouseClicked
         // TODO add your handling code here:
-        NuevoCliente nuevo = new NuevoCliente();
+        NuevoCliente nuevo = new NuevoCliente(this, null);
         nuevo.setVisible(true);
-        
+
     }//GEN-LAST:event_btn_nuevoMouseClicked
 
     private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
@@ -263,105 +295,107 @@ public class Clientes extends javax.swing.JFrame {
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
         // TODO add your handling code here:
-        Productos productos = new Productos(this.idUsuario,this.idPermisos);
+        Productos productos = new Productos(this.idUsuario, this.idPermisos);
         productos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_productosMouseClicked
 
     private void btn_comprobantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprobantesMouseClicked
         // TODO add your handling code here:
-         Comprobante comp = new Comprobante(this.idUsuario,this.idPermisos);
+        Comprobante comp = new Comprobante(this.idUsuario, this.idPermisos);
         comp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_comprobantesMouseClicked
 
     private void menu_listadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menu_listadoMouseClicked
         // TODO add your handling code here:
-        Listado pro = new Listado(this.idUsuario,this.idPermisos);
+        Listado pro = new Listado(this.idUsuario, this.idPermisos);
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menu_listadoMouseClicked
 
     private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
         // TODO add your handling code here:
-        AdminUsuarios user = new AdminUsuarios(this.idUsuario,this.idPermisos);
+        AdminUsuarios user = new AdminUsuarios(this.idUsuario, this.idPermisos);
         user.setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
-    void visible(){
-        if(idPermisos == 1){
+    void visible() {
+        if (idPermisos == 1) {
             btn_usuarios.setVisible(true);
         } else {
             btn_usuarios.setVisible(false);
         }
     }
-    
-    void listar(String numero_documento)  { //buscar()
-    DefaultTableModel modelo=new DefaultTableModel();
-    modelo.addColumn("id_cliente");
-    modelo.addColumn("nombre");
-    modelo.addColumn("tipo_documento");
-    modelo.addColumn("numero_documento");
 
-    TablaDatos.setModel(modelo);
-    String sql="";
-    if(numero_documento.equals("")){
-        sql="Select id_cliente, nombre, tipo_documento, numero_documento from clientes ";
-        }else{
-        //esto es para que busque letra por letra
-        sql="Select id_cliente, nombre, tipo_documento, numero_documento from clientes where numero_documento like'%"+numero_documento+"%'";
+    void listar(String numero_documento) { //buscar()
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("#");
+        modelo.addColumn("NOMBRES");
+        modelo.addColumn("APELLIDOS");
+        modelo.addColumn("TIPO DOCUMENTO");
+        modelo.addColumn("N° DOCUMENTO");
+
+        TablaDatos.setModel(modelo);
+        String sql = "";
+        if (numero_documento.equals("")) {
+            sql = "Select id_cliente, nombre,apellidos, tipo_documento, numero_documento from clientes ";
+        } else {
+            //esto es para que busque letra por letra
+            sql = "Select id_cliente, nombre,apellidos, tipo_documento, numero_documento from clientes where numero_documento like'%" + numero_documento + "%'";
+        }
+        String Clientes[] = new String[5];
+        cn = conexion.conectar();
+
+        try {
+            st = cn.createStatement();
+            ResultSet resul = st.executeQuery(sql);
+            //mandamos datos al jtable
+            while (resul.next()) {
+                Clientes[0] = resul.getString(1);
+                Clientes[1] = resul.getString(2);
+                Clientes[2] = resul.getString(3);
+                Clientes[3] = resul.getString(4);
+                Clientes[4] = resul.getString(5);
+
+                modelo.addRow(Clientes);
+
+            }
+            TablaDatos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-  String Clientes[]=new String[4];
-  cn=conexion.conectar();
-
-    try {
-        st=cn.createStatement();
-        ResultSet resul=st.executeQuery(sql);
-      //mandamos datos al jtable
-      while(resul.next()){
-          Clientes[0]=resul.getString(1);
-          Clientes[1]=resul.getString(2);
-          Clientes[2]=resul.getString(3);
-          Clientes[3]=resul.getString(4);
-
-          modelo.addRow(Clientes);
-
-    } 
-    TablaDatos.setModel(modelo); 
-
-    }catch (SQLException ex) {
-        Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
 
     //esto es para que al listar no se dupliquen las entradas borra las anteriores :v
-   void limpiartabla(){
-        for(int i=0;i<=TablaDatos.getRowCount()-1;i++){
-        modelo.removeRow(i);
-       i=i-1;
+    void limpiartabla() {
+        for (int i = 0; i <= TablaDatos.getRowCount() - 1; i++) {
+            modelo.removeRow(i);
+            i = i - 1;
         }
-   }
-    
-   void eliminar(){
-       int filaselccionado=TablaDatos.getSelectedRow();
-       if(filaselccionado==-1){
-        JOptionPane.showMessageDialog(null,"Seleccione una fila para eliminar");
-        }else{
-           String sql="delete from clientes where id_cliente="+id;
-            try{
-                cn=conexion.conectar();
-                st=cn.createStatement();
+    }
+
+    void eliminar() {
+        int filaselccionado = TablaDatos.getSelectedRow();
+        if (filaselccionado == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar");
+        } else {
+            String sql = "delete from clientes where id_cliente=" + id;
+            try {
+                cn = conexion.conectar();
+                st = cn.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null,"El cliente fue eliminado");
+                JOptionPane.showMessageDialog(null, "El cliente fue eliminado");
                 limpiartabla();
-                
-                }catch(Exception e){
-                   System.out.println("error: "+e.getMessage());
-                }
-       }
-   }
+
+            } catch (Exception e) {
+                System.out.println("error: " + e.getMessage());
+            }
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

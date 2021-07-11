@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.pkg2;
+package edu.utp.interfaces;
 
 import java.awt.Color;
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import conexion.ConexionBD;
 import javax.swing.JOptionPane;
-import static project.pkg2.AdminUsuarios.id;
+import static edu.utp.interfaces.AdminUsuarios.id;
 /**
  *
  * @author Casa

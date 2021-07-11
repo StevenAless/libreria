@@ -1,4 +1,4 @@
-package project.pkg2;
+package edu.utp.interfaces;
 
 import com.google.gson.GsonBuilder;
 import static conexion.ConexionBD.conectar;
@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -41,11 +42,11 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     Integer idUsuario = null;
     Integer idPermisos = null;
 
-    public Listado(Integer id,Integer permisos) {
+    public Listado(Integer id, Integer permisos) {
         this.idUsuario = id;
         this.idPermisos = permisos;
         initComponents();
-        txt_fecha.setDateFormatString("dd/MM/yyyy");
+        txt_fechadesde.setDateFormatString("dd/MM/yyyy");
         this.tbl_comprobantes.addMouseListener(this);
         setLocationRelativeTo(null);
         setBackground(new Color(0, 0, 0, 0));
@@ -66,19 +67,20 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         btn_listadocomp = new javax.swing.JLabel();
         btn_productos = new javax.swing.JLabel();
         btn_clientes = new javax.swing.JLabel();
-        txt_fecha = new com.toedter.calendar.JDateChooser();
         combo_comprobante = new javax.swing.JComboBox<>();
+        txt_fechadesde = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        txt_fechahasta = new com.toedter.calendar.JDateChooser();
         txt_cliente = new javax.swing.JTextField();
-        btn_limpiar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         btn_filtrar = new javax.swing.JLabel();
+        btn_limpiar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_usuarios = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -108,7 +110,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         });
         jScrollPane1.setViewportView(tbl_comprobantes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 690, 360));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 230, 690, 360));
 
         btn_comprobante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Menu1.png"))); // NOI18N
         btn_comprobante.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,35 +144,35 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         });
         jPanel1.add(btn_clientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
-        txt_fecha.setDateFormatString("yyyy/MM/dd");
-        jPanel1.add(txt_fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 110, 160, 40));
-
+        combo_comprobante.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         combo_comprobante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Tipo Comprobante", "Factura Electronica", "Boleta Electronica" }));
         combo_comprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo_comprobanteActionPerformed(evt);
             }
         });
-        jPanel1.add(combo_comprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 260, 40));
+        jPanel1.add(combo_comprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 210, 40));
+        jPanel1.add(txt_fechadesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 110, 160, 40));
 
-        txt_cliente.setFont(new java.awt.Font("Berlin Sans FB", 0, 12)); // NOI18N
-        txt_cliente.setForeground(new java.awt.Color(153, 153, 153));
-        txt_cliente.setText("Ingrese nombre de cliente");
-        txt_cliente.setToolTipText("");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setText("DESDE");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, -1, -1));
+        jPanel1.add(txt_fechahasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 110, 160, 40));
+
+        txt_cliente.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txt_cliente.setToolTipText("Ingrese nombre de cliente");
         txt_cliente.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_clienteFocusGained(evt);
             }
         });
-        jPanel1.add(txt_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 510, 30));
+        jPanel1.add(txt_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 590, 40));
 
-        btn_limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/btn_limpiar.png"))); // NOI18N
-        btn_limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_limpiarMouseClicked(evt);
-            }
-        });
-        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 110, -1, -1));
+        jButton1.setBackground(new java.awt.Color(51, 255, 0));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setText("GENERAR REPORTE");
+        jButton1.setOpaque(false);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 600, 180, 30));
 
         btn_filtrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/btn_filtrar.png"))); // NOI18N
         btn_filtrar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -178,16 +180,25 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
                 btn_filtrarMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_filtrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 180, -1, -1));
+        jPanel1.add(btn_filtrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 180, 60, 40));
+
+        btn_limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/btn_limpiar.png"))); // NOI18N
+        btn_limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_limpiarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/CLIENTE.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, 10));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/TIPO DE COMPROBANTE.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/FECHA.png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 90, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("HASTA");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, -1, -1));
 
         btn_usuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Usuarios/Menu5.png"))); // NOI18N
         btn_usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -203,22 +214,6 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/Panel-left.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jButton1.setText("limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 200, -1, -1));
-
-        jButton2.setText("filtrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 200, -1, -1));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 700));
 
         pack();
@@ -229,13 +224,13 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     }//GEN-LAST:event_btn_listadocompMouseClicked
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
-        Productos pro = new Productos(this.idUsuario,this.idPermisos);
+        Productos pro = new Productos(this.idUsuario, this.idPermisos);
         pro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_productosMouseClicked
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
-        Clientes clientes = new Clientes(this.idUsuario,this.idPermisos);
+        Clientes clientes = new Clientes(this.idUsuario, this.idPermisos);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
@@ -247,14 +242,6 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     private void combo_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_comprobanteActionPerformed
 
     }//GEN-LAST:event_combo_comprobanteActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        limpiar();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        filtrar();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txt_clienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_clienteFocusGained
         // TODO add your handling code here:
@@ -274,30 +261,31 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
 
     private void btn_comprobanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprobanteMouseClicked
         // TODO add your handling code here:
-        Comprobante comp = new Comprobante(this.idUsuario,this.idPermisos);
+        Comprobante comp = new Comprobante(this.idUsuario, this.idPermisos);
         comp.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_btn_comprobanteMouseClicked
 
     private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
         // TODO add your handling code here:
-        AdminUsuarios usuarios = new AdminUsuarios(this.idUsuario,this.idPermisos);
+        AdminUsuarios usuarios = new AdminUsuarios(this.idUsuario, this.idPermisos);
         usuarios.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
-    void visible(){
-        if(idPermisos == 1){
+    void visible() {
+        if (idPermisos == 1) {
             btn_usuarios.setVisible(true);
         } else {
             btn_usuarios.setVisible(false);
         }
     }
-    
+
     private void limpiar() {
         combo_comprobante.setSelectedIndex(0);
-        txt_fecha.setDate(null);
+        txt_fechadesde.setDate(null);
+        txt_fechahasta.setDate(null);
         txt_cliente.setText("");
         filtrar();
     }
@@ -310,15 +298,21 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         if ("Factura Electronica".equalsIgnoreCase(combo) || "Boleta Electronica".equalsIgnoreCase(combo)) {
             filtro += "AND c.tipo_comprobante='" + combo + "'";
         }
-        if (txt_fecha.getDate() != null) {
-            String[] date = dateFormat.format(txt_fecha.getDate()).split("/");
-            filtro += " AND c.fecha like '%" + date[2] + "-" + date[1] + "-" + date[0] + "%'";
+        if (Objects.nonNull(txt_fechadesde.getDate())) {
+            String[] date = dateFormat.format(txt_fechadesde.getDate()).split("/");
+            String dateinit = date[2] + "-" + date[1] + "-" + date[0];
+            filtro += " AND c.fecha between '" + dateinit + " 00:00:00'";
+            if (Objects.nonNull(txt_fechahasta.getDate())) {
+                String[] date2 = dateFormat.format(txt_fechahasta.getDate()).split("/");
+                filtro += " AND '" + date2[2] + "-" + date2[1] + "-" + date2[0] + " 23:59:59'";
+            } else {
+                filtro += " AND '" + dateinit + " 23:59:59'";
+            }
         }
         final String cliente = txt_cliente.getText();
         if (!"".equals(cliente.trim())) {
             filtro += " AND cl.nombre like '%" + cliente + "%'";
         }
-        System.err.println(filtro);
         listar(filtro);
     }
 
@@ -335,8 +329,8 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
 
         tbl_comprobantes.setModel(modelo);
 
-        String sql = "select c.*, cl.nombre as cliente from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente WHERE 1=1 " + filtro;
-
+        String sql = "select c.*, concat(cl.nombre,' ',cl.apellidos) as cliente from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente WHERE 1=1 " + filtro;
+        System.err.println(sql);
         cn = conectar();
         try {
             st = cn.createStatement();
@@ -367,12 +361,12 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
             e.printStackTrace();
         }
     }
-/*
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new Listado(0).setVisible(true);
+            new Listado(0, 1).setVisible(true);
         });
-    }*/
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_clientes;
     private javax.swing.JLabel btn_comprobante;
@@ -383,18 +377,19 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel btn_usuarios;
     private javax.swing.JComboBox<String> combo_comprobante;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_comprobantes;
     private javax.swing.JTextField txt_cliente;
-    private com.toedter.calendar.JDateChooser txt_fecha;
+    private com.toedter.calendar.JDateChooser txt_fechadesde;
+    private com.toedter.calendar.JDateChooser txt_fechahasta;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -465,7 +460,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     }
 
     public Map<String, String> get_comprobante(Integer id) {
-        String sql = " select c.*, cl.nombre as cliente, cl.tipo_documento as tipodoc, cl.numero_documento as numdoc, cl.direccion from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente WHERE c.id_comprobante=" + id;
+        String sql = " select c.*, concat(cl.nombre,' ',cl.apellidos) as cliente, cl.tipo_documento as tipodoc, cl.numero_documento as numdoc, cl.direccion from comprobante c inner join clientes cl on c.id_cliente = cl.id_cliente WHERE c.id_comprobante=" + id;
         Map<String, String> map = new HashMap<>();
 
         cn = conectar();
@@ -476,14 +471,14 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
             while (rs.next()) {
                 map.put("id", rs.getString("id_comprobante"));
                 map.put("fecha", rs.getString("fecha").split(" ")[0]);
-                map.put("cliente", rs.getString("cliente"));
+                map.put("cliente", rs.getString("cliente").toUpperCase());
                 map.put("tipocomprobante", rs.getString("tipo_comprobante").toUpperCase());
                 map.put("serie", String.valueOf(rs.getString("serie_comprobante") + "-" + rs.getString("numero_comprobante")));
                 map.put("total", rs.getString("total_venta"));
                 map.put("impuesto", rs.getString("impuesto"));
                 map.put("tipodoc", rs.getString("tipodoc"));
                 map.put("numdoc", rs.getString("numdoc"));
-                map.put("direccion", rs.getString("direccion"));
+                map.put("direccion", rs.getString("direccion").toUpperCase());
                 map.put("montoletras", NumeroLetras.Convertir(rs.getString("total_venta"), true));
             }
             cn.close();

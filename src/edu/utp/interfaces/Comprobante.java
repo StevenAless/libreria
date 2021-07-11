@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.pkg2;
+package edu.utp.interfaces;
 
 import conexion.ConexionBD;
 import java.sql.Connection;
@@ -224,7 +224,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void btn_productosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_productosMouseClicked
         // TODO add your handling code here:
-        Productos pro = new Productos(this.idUsuario,this.idPermisos);
+        Productos pro = new Productos(this.idUsuario, this.idPermisos);
         pro.setVisible(true);
         this.dispose();
 
@@ -232,7 +232,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
         // TODO add your handling code here:
-        Clientes clientes = new Clientes(this.idUsuario,this.idPermisos);
+        Clientes clientes = new Clientes(this.idUsuario, this.idPermisos);
         clientes.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
@@ -244,14 +244,14 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void lbl_nuevoCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_nuevoCMouseClicked
         // TODO add your handling code here:
-        NuevoCliente nuevo = new NuevoCliente();
+        NuevoCliente nuevo = new NuevoCliente(this, null);
         nuevo.setVisible(true);
 
     }//GEN-LAST:event_lbl_nuevoCMouseClicked
 
     private void combo_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_clienteActionPerformed
         // TODO add your handling code here:
-        System.out.println("combo index: "+combo_cliente.getSelectedIndex());
+        System.out.println("combo index: " + combo_cliente.getSelectedIndex());
 
     }//GEN-LAST:event_combo_clienteActionPerformed
 
@@ -273,7 +273,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
     private void btn_usuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usuariosMouseClicked
         // TODO add your handling code here:
-        AdminUsuarios user = new AdminUsuarios(this.idUsuario,this.idPermisos);
+        AdminUsuarios user = new AdminUsuarios(this.idUsuario, this.idPermisos);
         user.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_usuariosMouseClicked
@@ -282,14 +282,14 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_numeroActionPerformed
 
-    void visible (){
-        if(idPermisos == 1){
+    void visible() {
+        if (idPermisos == 1) {
             btn_usuarios.setVisible(true);
         } else {
             btn_usuarios.setVisible(false);
         }
     }
-    
+
     public void Rellenar() {
         String sql = "select * from numeracion where id_numeracion=1";
         combo_tipo = combo_tipoC.getSelectedItem().toString();
@@ -342,15 +342,15 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         }
     }
 
-    void mostrarcliente() {
-        String sql = "Select nombre from clientes";
+    public void mostrarcliente() {
+        String sql = "Select nombre, apellidos from clientes";
         cn = conexion.conectar();
         try {
             combo_cliente.addItem("Seleccionar Cliente");
             st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                combo_cliente.addItem(rs.getString("nombre")); //nombre de la cabecera tabla pa mostrar
+                combo_cliente.addItem(rs.getString("nombre") + " " + rs.getString("apellidos")); //nombre de la cabecera tabla pa mostrar
             }
 
         } catch (SQLException ex) {
@@ -530,7 +530,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
 
                 Integer idcomprobante = this.getCorrelativo(txt_serie.getText()).get("id");
 
-                String sqlFacturado = "UPDATE carrito SET facturado=1, Identificador=" + idcomprobante+" where facturado=0";
+                String sqlFacturado = "UPDATE carrito SET facturado=1, Identificador=" + idcomprobante + " where facturado=0";
                 st.executeUpdate(sqlFacturado);
 
                 this.Rellenar();
@@ -540,7 +540,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
             }
         }
     }
-/*
+    /*
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

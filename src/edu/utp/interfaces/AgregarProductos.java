@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project.pkg2;
+package edu.utp.interfaces;
 
 import conexion.ConexionBD;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static project.pkg2.Comprobante.idC;
+import static edu.utp.interfaces.Comprobante.idC;
 
 /**
  *
