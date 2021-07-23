@@ -182,31 +182,33 @@ public class EditarCliente extends javax.swing.JFrame {
             cn=conexion.conectar();
             st=cn.createStatement();
             rs=st.executeQuery(sql);
-            Object[]clientes=new Object[10];
+            Object[]clientes=new Object[11];
            
            
             while(rs.next()){
                 clientes[0] = rs.getString("id_cliente");
                 clientes[1] = rs.getString("nombre");
-                clientes[2] = rs.getString("tipo_documento");
-                clientes[3] = rs.getString("numero_documento");
-                clientes[4] = rs.getString("direccion");
-                clientes[5] = rs.getString("departamento");
-                clientes[6] = rs.getString("provincia");
-                clientes[7] = rs.getString("distrito");
-                clientes[8] = rs.getString("telefono");
-                clientes[9] = rs.getString("correo");
+                clientes[2] = rs.getString("apellidos");
+                clientes[3] = rs.getString("tipo_documento");
+                clientes[4] = rs.getString("numero_documento");
+                clientes[5] = rs.getString("direccion");
+                clientes[6] = rs.getString("departamento");
+                clientes[7] = rs.getString("provincia");
+                clientes[8] = rs.getString("distrito");
+                clientes[9] = rs.getString("telefono");
+                clientes[10] = rs.getString("correo");
             }
             
             txt_name.setText(""+clientes[1]);
-            txt_type.setText(""+clientes[2]);
-            txt_num.setText(""+clientes[3]);
-            txt_direccion.setText(""+clientes[4]);
-            txt_departamento.setText(""+clientes[5]);
-            txt_provincia.setText(""+clientes[6]);
-            txt_distrito.setText(""+clientes[7]);
-            txt_telefono.setText(""+clientes[8]);
-            txt_correo.setText(""+clientes[9]);
+            txt_name.setText(""+clientes[2]);
+            txt_type.setText(""+clientes[3]);
+            txt_num.setText(""+clientes[4]);
+            txt_direccion.setText(""+clientes[5]);
+            txt_departamento.setText(""+clientes[6]);
+            txt_provincia.setText(""+clientes[7]);
+            txt_distrito.setText(""+clientes[8]);
+            txt_telefono.setText(""+clientes[9]);
+            txt_correo.setText(""+clientes[10]);
             
             
         }catch (SQLException e) {

@@ -72,6 +72,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_usuarios = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -207,6 +208,14 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         });
         jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 270, -1));
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/btn_salir.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Listado/Fondo-derecha.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 690));
 
@@ -277,6 +286,13 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
         ReporteDetallado reporte = new ReporteDetallado(this, true);
         reporte.show(true);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel8MouseClicked
 
     void visible() {
         if (idPermisos == 1) {
@@ -387,6 +403,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -448,7 +465,7 @@ public class Listado extends javax.swing.JFrame implements MouseListener {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                map.put("id", rs.getString("id_comprobante"));
+                map.put("id", rs.getString("id_usuario"));
                 map.put("fecha", rs.getString("fecha").split(" ")[0]);
                 map.put("cliente", rs.getString("cliente").toUpperCase());
                 map.put("tipocomprobante", rs.getString("tipo_comprobante").toUpperCase());

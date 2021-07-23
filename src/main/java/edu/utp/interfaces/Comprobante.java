@@ -82,6 +82,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         btn_descartar = new javax.swing.JLabel();
         btn_generarC = new javax.swing.JLabel();
         btn_usuarios = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -208,6 +209,14 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
         });
         jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 560, 270, 60));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/btn_salir.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 10, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Comprobante/panel-right-2.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 860, 680));
 
@@ -284,6 +293,13 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     private void txt_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_numeroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_numeroActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     void visible() {
         if (idPermisos == 1) {
@@ -564,6 +580,7 @@ public class Comprobante extends javax.swing.JFrame implements MouseListener {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;

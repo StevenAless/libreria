@@ -74,6 +74,7 @@ public class Productos extends javax.swing.JFrame {
         TablaDatosP = new javax.swing.JTable();
         btn_actualizar = new javax.swing.JButton();
         btn_usuarios = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -201,6 +202,14 @@ public class Productos extends javax.swing.JFrame {
         });
         jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 560, 270, 60));
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/btn_salir.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, -1, -1));
+
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/productos/panel-right.png"))); // NOI18N
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 680));
 
@@ -290,6 +299,13 @@ public class Productos extends javax.swing.JFrame {
         user.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btn_usuariosMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
     
     void visible(){
         if(idPermisos == 1){
@@ -383,6 +399,7 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JLabel btn_usuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

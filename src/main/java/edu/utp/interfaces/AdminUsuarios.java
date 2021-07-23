@@ -66,6 +66,7 @@ public class AdminUsuarios extends javax.swing.JFrame {
         lbl_apellido = new javax.swing.JLabel();
         lbl_correo = new javax.swing.JLabel();
         btn_actualizar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -168,6 +169,15 @@ public class AdminUsuarios extends javax.swing.JFrame {
         });
         jPanel1.add(btn_actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 610, -1, -1));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/btn_salir.png"))); // NOI18N
+        jLabel3.setToolTipText("");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, -1, -1));
+
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/Usuarios/Panel-derecho.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, -10, 850, 700));
 
@@ -253,6 +263,13 @@ public class AdminUsuarios extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btn_clientesMouseClicked
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     void listar(String correo) {
         DefaultTableModel tablamodelo = new DefaultTableModel();
         tablamodelo.addColumn("Id");
@@ -304,6 +321,7 @@ public class AdminUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel btn_productos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_apellido;

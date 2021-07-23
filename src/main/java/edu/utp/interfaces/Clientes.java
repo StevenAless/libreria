@@ -75,6 +75,7 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDatos = new javax.swing.JTable();
         btn_usuarios = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -171,7 +172,7 @@ public class Clientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOMBRES", "APELLIDOS", "DNI", "RUC"
+                "ID", "NOMBRES", "", "DNI", "RUC"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -202,6 +203,14 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 270, 60));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/btn_salir.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clientes/panel-right.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 680));
@@ -324,6 +333,13 @@ public class Clientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_usuariosMouseClicked
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     void visible() {
         if (idPermisos == 1) {
             btn_usuarios.setVisible(true);
@@ -336,7 +352,7 @@ public class Clientes extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("#");
         modelo.addColumn("NOMBRES");
-        modelo.addColumn("APELLIDOS");
+        modelo.addColumn(" ");
         modelo.addColumn("TIPO DOCUMENTO");
         modelo.addColumn("N° DOCUMENTO");
 
@@ -411,6 +427,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JLabel btn_usuarios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

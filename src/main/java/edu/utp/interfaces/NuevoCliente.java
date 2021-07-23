@@ -43,7 +43,7 @@ public class NuevoCliente extends javax.swing.JFrame {
         if (Objects.nonNull(editar)) {
             this.editar = editar;
             this.combo_tipodoc.setSelectedItem(this.editar.getTipo_documento());
-            this.txt_numero.setText(this.editar.getTelefono());
+            this.txt_numero.setText(this.editar.getNumero_documento());
             this.txt_telefono.setText(this.editar.getTelefono());
             this.txt_nombre.setText(this.editar.getNombre());
             this.txt_apellidos.setText(this.editar.getApellidos());
@@ -81,21 +81,14 @@ public class NuevoCliente extends javax.swing.JFrame {
         txt_direccion = new javax.swing.JTextField();
         combo_tipodoc = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
+        jPanel1.setMinimumSize(new java.awt.Dimension(760, 520));
+        jPanel1.setPreferredSize(new java.awt.Dimension(760, 520));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/Boton-editar.png"))); // NOI18N
@@ -104,7 +97,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 btn_guardarMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 400, -1, -1));
+        jPanel1.add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 470, -1, -1));
 
         btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/Boton-eliminar.png"))); // NOI18N
         btn_exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,7 +105,7 @@ public class NuevoCliente extends javax.swing.JFrame {
                 btn_exitMouseClicked(evt);
             }
         });
-        jPanel1.add(btn_exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
+        jPanel1.add(btn_exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 470, -1, -1));
 
         txt_telefono.setBorder(null);
         txt_telefono.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +113,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_telefonoActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 180, 40));
+        txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_telefonoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 130, 20));
 
         txt_numero.setBorder(null);
         txt_numero.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +126,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_numeroActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 180, 40));
+        txt_numero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_numeroKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 130, 30));
 
         txt_provincia.setBorder(null);
         txt_provincia.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +139,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_provinciaActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_provincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 180, 40));
+        txt_provincia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_provinciaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_provincia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 160, 30));
 
         txt_nombre.setBorder(null);
         txt_nombre.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +152,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_nombreActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 180, 40));
+        txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_nombreKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 180, 30));
 
         txt_apellidos.setBorder(null);
         txt_apellidos.addActionListener(new java.awt.event.ActionListener() {
@@ -152,7 +165,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_apellidosActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_apellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 390, 40));
+        txt_apellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_apellidosKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_apellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 200, 20));
 
         txt_departamento.setBorder(null);
         txt_departamento.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +178,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_departamentoActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 180, 40));
+        txt_departamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_departamentoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 140, 30));
 
         txt_distrito.setBorder(null);
         txt_distrito.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +191,12 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_distritoActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_distrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 180, 40));
+        txt_distrito.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_distritoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txt_distrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 160, 30));
 
         txt_email.setBorder(null);
         txt_email.addActionListener(new java.awt.event.ActionListener() {
@@ -176,56 +204,22 @@ public class NuevoCliente extends javax.swing.JFrame {
                 txt_emailActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 180, 40));
+        jPanel1.add(txt_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 200, 30));
 
         txt_direccion.setBorder(null);
-        jPanel1.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 390, 40));
+        jPanel1.add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 310, 30));
 
         combo_tipodoc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         combo_tipodoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "RUC" }));
-        jPanel1.add(combo_tipodoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 180, 40));
+        jPanel1.add(combo_tipodoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 180, 40));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("N° DOCUMENTO");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/ocultar.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("N° CELULAR/TELEFONO");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, -1, -1));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/NewEdit/Cliente.png"))); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("DIRECCIÓN");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("TIPO DOCUMENTO");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("NOMBRES");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("APELLIDOS");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText("DEPARTAMENTO");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("PROVINCIA");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel10.setText("DISTRITO");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setText("EMAIL");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 490));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -277,6 +271,75 @@ public class NuevoCliente extends javax.swing.JFrame {
     private void txt_apellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_apellidosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_apellidosActionPerformed
+
+    private void txt_numeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_numeroKeyTyped
+        // TODO add your handling code here:
+        if(txt_numero.getText().length()>=11){
+            evt.consume();
+        }
+        char validar=evt.getKeyChar();
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_numeroKeyTyped
+
+    private void txt_telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_telefonoKeyTyped
+        // TODO add your handling code here:
+        if(txt_telefono.getText().length()>=9){
+            evt.consume();
+        }
+        char validar=evt.getKeyChar();
+        if(Character.isLetter(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_telefonoKeyTyped
+
+    private void txt_nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombreKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_nombreKeyTyped
+
+    private void txt_apellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_apellidosKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_apellidosKeyTyped
+
+    private void txt_departamentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_departamentoKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_departamentoKeyTyped
+
+    private void txt_provinciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_provinciaKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_provinciaKeyTyped
+
+    private void txt_distritoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_distritoKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_distritoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -391,15 +454,7 @@ public class NuevoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel btn_guardar;
     private javax.swing.JComboBox<String> combo_tipodoc;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txt_apellidos;
     private javax.swing.JTextField txt_departamento;

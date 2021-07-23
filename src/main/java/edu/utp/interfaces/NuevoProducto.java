@@ -71,12 +71,27 @@ public class NuevoProducto extends javax.swing.JFrame {
         jPanel1.add(txt_descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 580, 60));
 
         txt_preciocompra.setBorder(null);
+        txt_preciocompra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_preciocompraKeyTyped(evt);
+            }
+        });
         jPanel1.add(txt_preciocompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 120, 30));
 
         txt_stock.setBorder(null);
+        txt_stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_stockKeyTyped(evt);
+            }
+        });
         jPanel1.add(txt_stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 120, 30));
 
         txt_precioventa.setBorder(null);
+        txt_precioventa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_precioventaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txt_precioventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 120, 30));
 
         txt_nombre.setBorder(null);
@@ -120,6 +135,39 @@ public class NuevoProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_cancelarMouseClicked
+
+    private void txt_precioventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precioventaKeyTyped
+        // TODO add your handling code here:
+        if(Character.isLetter(evt.getKeyChar()))
+            evt.consume();
+        else{
+        try{
+            Double.parseDouble(txt_precioventa.getText()+evt.getKeyChar());
+        }catch(NumberFormatException e){
+            evt.consume();
+        }}
+    }//GEN-LAST:event_txt_precioventaKeyTyped
+
+    private void txt_stockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_stockKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+                if(Character.isLetter(validar)){
+                    getToolkit().beep();
+                    evt.consume();
+                }
+    }//GEN-LAST:event_txt_stockKeyTyped
+
+    private void txt_preciocompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_preciocompraKeyTyped
+        // TODO add your handling code here:
+    if(Character.isLetter(evt.getKeyChar()))
+               evt.consume();
+           else{
+           try{
+               Double.parseDouble(txt_preciocompra.getText()+evt.getKeyChar());
+           }catch(NumberFormatException e){
+               evt.consume();
+           }}
+    }//GEN-LAST:event_txt_preciocompraKeyTyped
 
     /**
      * @param args the command line arguments

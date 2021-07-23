@@ -43,6 +43,7 @@ public class Registro extends javax.swing.JFrame {
         txtpwd = new javax.swing.JPasswordField();
         Version = new javax.swing.JLabel();
         txt1 = new javax.swing.JLabel();
+        txt2 = new javax.swing.JLabel();
         btn_login = new javax.swing.JLabel();
         btn_registrar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -118,14 +119,20 @@ public class Registro extends javax.swing.JFrame {
         jPanel1.add(txtpwd, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 390, 360, 30));
 
         Version.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        Version.setForeground(new java.awt.Color(112, 112, 112));
-        Version.setText("Versión 1.2");
-        jPanel1.add(Version, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, -1, 30));
+        Version.setForeground(new java.awt.Color(255, 255, 255));
+        Version.setText("Versión 1.8");
+        jPanel1.add(Version, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 580, -1, 30));
 
         txt1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         txt1.setForeground(new java.awt.Color(112, 112, 112));
-        txt1.setText("Ya tienes cuenta?");
-        jPanel1.add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 120, 30));
+        txt1.setText("Cerrar");
+        txt1.setToolTipText("");
+        jPanel1.add(txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 10, 40, 30));
+
+        txt2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        txt2.setForeground(new java.awt.Color(112, 112, 112));
+        txt2.setText("Ya tienes cuenta?");
+        jPanel1.add(txt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 120, 30));
 
         btn_login.setFont(new java.awt.Font("Segoe UI", 3, 13)); // NOI18N
         btn_login.setForeground(new java.awt.Color(122, 117, 236));
@@ -262,6 +269,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txt1;
+    private javax.swing.JLabel txt2;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombre;
